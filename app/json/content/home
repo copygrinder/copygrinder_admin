@@ -1,0 +1,8 @@
+{
+    "id":"home",
+    "enforcedTypeIds":[],
+    "contains":{
+        "title": "Home Page",
+        "body": "Copygrinder home page"
+    }
+}
