@@ -13,7 +13,9 @@
   },
   "devDependencies": {
     "angular-mocks": "1.2.x",
-    "angular-scenario": "1.2.x"
-  },
-  "appPath": "app"
+    "angular-scenario": "1.2.x",
+    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip",
+    "angular-extern": "https://raw.githubusercontent.com/google/closure-compiler/master/contrib/externs/angular-1.2.js",
+    "closure-base": "https://raw.githubusercontent.com/google/closure-library/master/closure/goog/base.js"
+  }
 }

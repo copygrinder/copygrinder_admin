@@ -11,7 +11,9 @@ module.exports = function (grunt) {
     instrument: 'grunt-istanbul',
     makeReport: 'grunt-istanbul',
     protractor: 'grunt-protractor-runner',
-    htmllint: 'grunt-html'
+    htmllint: 'grunt-html',
+    closureCompiler: 'grunt-closure-tools',
+    replace: 'grunt-text-replace'
   });
 
   var protractorBreaksBuild = grunt.option('protractorBreaksBuild') || false;
@@ -19,9 +21,10 @@ module.exports = function (grunt) {
   grunt.initConfig({
 
     yeoman: {
-      app: require('./bower.json').appPath || 'app',
+      app: 'app',
       dist: 'dist',
       mainTmp: '.tmp/main',
+      closureTmp: '.tmp/main/closure',
       covTmp: '.tmp/cov',
       covTmpInst: '.tmp/inst',
       bowerComponents: 'components'
@@ -33,7 +36,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/**/*.js'],
-        tasks: ['newer:jshint:all', 'newer:copy:scripts'],
+        tasks: ['newer:jshint:all', 'newer:copy:scripts', 'closure'],
         options: {
           livereload: true
         }
@@ -120,13 +123,15 @@ module.exports = function (grunt) {
 
     clean: {
       dist: {
-        files: [{
-          dot: true,
-          src: [
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
-          ]
-        }]
+        files: [
+          {
+            dot: true,
+            src: [
+              '<%= yeoman.dist %>/*',
+              '!<%= yeoman.dist %>/.git*'
+            ]
+          }
+        ]
       },
       tmp: '.tmp',
       reports: [
@@ -140,12 +145,14 @@ module.exports = function (grunt) {
         map: true
       },
       dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.mainTmp %>/styles/',
-          src: '**/*.css',
-          dest: '<%= yeoman.mainTmp %>/styles/'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.mainTmp %>/styles/',
+            src: '**/*.css',
+            dest: '<%= yeoman.mainTmp %>/styles/'
+          }
+        ]
       }
     },
 
@@ -180,12 +187,14 @@ module.exports = function (grunt) {
 
     imagemin: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '**/*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
-        }],
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/images',
+            src: '**/*.{png,jpg,jpeg,gif}',
+            dest: '<%= yeoman.dist %>/images'
+          }
+        ],
         options: {
           cache: false
         }
@@ -199,12 +208,14 @@ module.exports = function (grunt) {
           removeCommentsFromCDATA: true,
           removeOptionalTags: false
         },
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.dist %>',
-          src: ['*.html', 'views/**/*.html'],
-          dest: '<%= yeoman.dist %>'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.dist %>',
+            src: ['*.html', 'views/**/*.html'],
+            dest: '<%= yeoman.dist %>'
+          }
+        ]
       }
     },
 
@@ -216,52 +227,59 @@ module.exports = function (grunt) {
 
     ngAnnotate: {
       dist: {
-        files: [{
-          expand: true,
-          cwd: '.tmp/concat/scripts',
-          src: ['scripts.js'],
-          dest: '.tmp/concat/scripts'
-        }]
+        files: [
+          {
+            expand: true,
+            cwd: '.tmp/concat/scripts',
+            src: ['scripts.js'],
+            dest: '.tmp/concat/scripts'
+          }
+        ]
       }
     },
 
     copy: {
       tmp: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.mainTmp %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            '*.html',
-            'images/**/**',
-            'fonts/*',
-            '<%= yeoman.bowerComponents %>/**',
-            'third_party_scripts/**'
-          ]
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.mainTmp %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              '*.html',
+              'images/**/**',
+              'fonts/*',
+              '<%= yeoman.bowerComponents %>/**',
+              'third_party_scripts/**'
+            ]
+          }
+        ]
       },
       dist: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.mainTmp %>',
-          dest: '<%= yeoman.dist %>',
-          src: [
-            '*.{ico,png,txt}',
-            '.htaccess',
-            '*.html',
-            'images/**/*.{webp}',
-            'fonts/*'
-          ]
-        }, {
-          expand: true,
-          cwd: '<%= yeoman.mainTmp %>/images',
-          dest: '<%= yeoman.dist %>/images',
-          src: ['generated/*']
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.mainTmp %>',
+            dest: '<%= yeoman.dist %>',
+            src: [
+              '*.{ico,png,txt}',
+              '.htaccess',
+              '*.html',
+              'images/**/*.{webp}',
+              'fonts/*'
+            ]
+          },
+          {
+            expand: true,
+            cwd: '<%= yeoman.mainTmp %>/images',
+            dest: '<%= yeoman.dist %>/images',
+            src: ['generated/*']
+          }
+        ]
       },
       scripts: {
         expand: true,
@@ -276,26 +294,30 @@ module.exports = function (grunt) {
         src: '**/*.{css,less}'
       },
       cov1: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.mainTmp %>',
-          dest: '<%= yeoman.covTmp %>',
-          src: [
-            '**'
-          ]
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.mainTmp %>',
+            dest: '<%= yeoman.covTmp %>',
+            src: [
+              '**'
+            ]
+          }
+        ]
       },
       cov2: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.covTmpInst %>/<%= yeoman.mainTmp %>',
-          dest: '<%= yeoman.covTmp %>',
-          src: [
-            '**'
-          ]
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.covTmpInst %>/<%= yeoman.mainTmp %>',
+            dest: '<%= yeoman.covTmp %>',
+            src: [
+              '**'
+            ]
+          }
+        ]
       }
     },
 
@@ -314,23 +336,25 @@ module.exports = function (grunt) {
     },
 
     less: {
-      development : {
-        options : {
-          paths : [ '<%= yeoman.app %>/<%= yeoman.bowerComponents %>' ],
+      development: {
+        options: {
+          paths: [ '<%= yeoman.app %>/<%= yeoman.bowerComponents %>' ],
           sourceMap: true,
           sourceMapBasepath: 'app/styles',
           sourceMapURL: 'less.css.map'
         },
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.mainTmp %>',
-          ext: '.css',
-          src: [
-            'styles/**/*.less'
-          ]
-        }]
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.mainTmp %>',
+            ext: '.css',
+            src: [
+              'styles/**/*.less'
+            ]
+          }
+        ]
       }
     },
 
@@ -348,8 +372,8 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>',
         src: 'views/**/**.html',
         dest: '<%= yeoman.mainTmp %>/scripts/templates.js',
-        options:    {
-          htmlmin:  { collapseWhitespace: true, collapseBooleanAttributes: true },
+        options: {
+          htmlmin: { collapseWhitespace: true, collapseBooleanAttributes: true },
           module: 'copygrinderHome'
         }
       }
@@ -395,11 +419,13 @@ module.exports = function (grunt) {
 
     htmllint: {
       all: {
-        files: [{
-          expand  : false,
-          src     : ['<%= yeoman.app %>/**/*.html']
-        }]
-    },
+        files: [
+          {
+            expand: false,
+            src: ['<%= yeoman.app %>/**/*.html']
+          }
+        ]
+      },
       options: {
         ignore: [
           'XHTML element “head” is missing a required instance of child element “title”.',
@@ -409,24 +435,26 @@ module.exports = function (grunt) {
     },
 
     accessibility: {
-      options : {
+      options: {
         accessibilityLevel: 'WCAG2A',
         domElement: true,
         verbose: false,
-        ignore : [
+        ignore: [
           'WCAG2A.Principle2.Guideline2_4.2_4_2.H25.1.NoTitleEl',
           'WCAG2A.Principle3.Guideline3_1.3_1_1.H57.2',
           'WCAG2A.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID'
         ]
       },
-      test : {
-        files: [{
-          expand  : true,
-          cwd     : '<%= yeoman.app %>/',
-          src     : ['views/**/*.html'],
-          dest    : '.tmp/accessibility',
-          ext     : '-report.txt'
-        }]
+      test: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.app %>/',
+            src: ['views/**/*.html'],
+            dest: '.tmp/accessibility',
+            ext: '-report.txt'
+          }
+        ]
       }
     },
 
@@ -434,17 +462,62 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.mainTmp %>/index.html'],
-        ignorePath:  /\.\.\/\.\.\/app\//
+        ignorePath: /\.\.\/\.\.\/app\//
       }
     },
 
     concurrent: {
+      options: {
+        logConcurrentOutput: true
+      },
       prepare1: [
         'htmllint',
         'jshint',
         'lesslint',
         'prepare2'
       ]
+    },
+
+    closureCompiler: {
+
+      options: {
+        compilerFile: '<%= yeoman.app %>/components/closure-compiler/compiler.jar',
+        //checkModified: true,
+
+        compilerOpts: {
+          'compilation_level': 'ADVANCED_OPTIMIZATIONS',
+          externs: ['<%= yeoman.app %>/components/angular-extern/index.js'],
+          //define: ['\'goog.DEBUG=false\''],
+          'warning_level': 'verbose',
+          'jscomp_off': ['checkTypes', 'strictModuleDepCheck'],
+          'summary_detail_level': 3,
+          'output_wrapper': '"//@ sourceMappingURL=closure.js.map\n(function(){%output%}).call(this);"',
+          'create_source_map': '<%= yeoman.closureTmp %>/closure.js.map',
+          'angular_pass': null,
+          'generate_exports': null
+        },
+        execOpts: {
+          maxBuffer: 999999 * 1024
+        }
+      },
+
+      compile: {
+        src: ['<%= yeoman.mainTmp %>/components/closure-base/index.js', '<%= yeoman.mainTmp %>/scripts/**/*.js'],
+        dest: '<%= yeoman.closureTmp %>/closure.js'
+      }
+    },
+
+    replace: {
+      fixSourceMap: {
+        src: ['<%= yeoman.closureTmp %>/closure.js.map'],
+        overwrite: true,
+        replacements: [
+          {
+            from: /\.tmp\/main/g,
+            to: '..'
+          }
+        ]
+      }
     }
 
   });
@@ -467,6 +540,11 @@ module.exports = function (grunt) {
     grunt.task.run(['serve']);
   });
 
+  grunt.registerTask('closure', [
+    'closureCompiler',
+    'replace:fixSourceMap'
+  ]);
+
   grunt.registerTask('test', [
     'cov',
     'runProtractor'
@@ -488,7 +566,6 @@ module.exports = function (grunt) {
     'useminPrepare',
     'imagemin',
     'concat',
-    'ngAnnotate',
     'copy:dist',
     'cssmin',
     'uglify',
@@ -510,7 +587,8 @@ module.exports = function (grunt) {
     'less',
     'autoprefixer',
     'ngtemplates',
-    'includeSource'
+    'includeSource',
+    'closure'
   ]);
 
   grunt.registerTask('cov', [

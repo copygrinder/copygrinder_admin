@@ -1,9 +1,17 @@
 'use strict';
 
-copygrinderHome.controller('NavigationController',
-    function HomeController($scope, $location) {
-        $scope.isActive = function (viewLocation) {
-            return viewLocation === $location.path();
-        };
-    }
-);
+goog.provide('cgAdmin.NavigationController');
+
+/**
+ * @ngInject
+ */
+cgAdmin.NavigationController = function ($scope, $location) {
+
+  /**
+   * @expose
+   */
+  $scope.isActive = function (viewLocation) {
+    return viewLocation === $location.path();
+  };
+
+};
