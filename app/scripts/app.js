@@ -1,19 +1,32 @@
 'use strict';
 
-goog.require('cgAdmin.HomeController');
+goog.provide('cgAdmin.homeModule');
 
 /**
+ * @param {!angular.$routeProvider} $routeProvider
  * @ngInject
  */
 var configFunc = function ($routeProvider) {
   $routeProvider.when('/',
     {
       templateUrl: 'views/home.html',
-      controller: 'HomeController'
+      controller: 'HomeController as controller'
     });
   $routeProvider.otherwise({redirectTo: '/'});
 };
 
-angular.module('copygrinderHome', ['ngResource', 'ngRoute'])
-  .controller('HomeController', cgAdmin.HomeController)
-  .config(configFunc);
+/**
+ * @param {!angular.$provide} $provide
+ * @ngInject
+ */
+var errorConfig = function ($provide) {
+  $provide.decorator('$exceptionHandler', ['$delegate', function ($delegate) {
+    return function (exception, cause) {
+      throw exception;
+    };
+  }]);
+};
+
+cgAdmin.homeModule = angular.module('copygrinderHome', ['ngResource', 'ngRoute'])
+  .config(configFunc)
+  .config(errorConfig);

@@ -487,14 +487,14 @@ module.exports = function (grunt) {
         compilerOpts: {
           'compilation_level': 'ADVANCED_OPTIMIZATIONS',
           externs: ['<%= yeoman.app %>/components/angular-extern/index.js'],
-          //define: ['\'goog.DEBUG=false\''],
           'warning_level': 'verbose',
-          'jscomp_off': ['checkTypes', 'strictModuleDepCheck'],
           'summary_detail_level': 3,
-          'output_wrapper': '"//@ sourceMappingURL=closure.js.map\n(function(){%output%}).call(this);"',
+          'output_wrapper': '"(function(){%output%}).call(this);\n\n//# sourceMappingURL=closure.js.map"',
           'create_source_map': '<%= yeoman.closureTmp %>/closure.js.map',
           'angular_pass': null,
-          'generate_exports': null
+          'generate_exports': null,
+          'debug': null,
+          'formatting':'pretty_print'
         },
         execOpts: {
           maxBuffer: 999999 * 1024
@@ -502,7 +502,7 @@ module.exports = function (grunt) {
       },
 
       compile: {
-        src: ['<%= yeoman.mainTmp %>/components/closure-base/index.js', '<%= yeoman.mainTmp %>/scripts/**/*.js'],
+        src: ['<%= yeoman.app %>/components/closure-base/index.js', '<%= yeoman.app %>/scripts/**/*.js'],
         dest: '<%= yeoman.closureTmp %>/closure.js'
       }
     },
@@ -513,8 +513,8 @@ module.exports = function (grunt) {
         overwrite: true,
         replacements: [
           {
-            from: /\.tmp\/main/g,
-            to: '..'
+            from: /app\/scripts/g,
+            to: '../scripts'
           }
         ]
       }

@@ -21,6 +21,8 @@
   "globals": {
     "angular": false,
     "goog": false,
-    "cgAdmin": false
+    "cgAdmin": false,
+    "$http": false,
+    "$window": false
   }
 }
