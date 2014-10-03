@@ -7,7 +7,7 @@ goog.provide('cgAdmin.homeModule');
  * @ngInject
  */
 var locationFunc = function ($locationProvider) {
-  //$locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 };
 
 /**
@@ -15,7 +15,7 @@ var locationFunc = function ($locationProvider) {
  * @ngInject
  */
 var routeFunc = function ($routeProvider) {
-  //$routeProvider.otherwise({redirectTo: '/home'});
+  $routeProvider.otherwise({redirectTo: '/home'});
 };
 
 /**
