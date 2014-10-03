@@ -7,15 +7,12 @@ goog.provide('cgAdmin.homeModule');
  * @ngInject
  */
 var configFunc = function ($routeProvider) {
-  $routeProvider.when('/',
-    {
-      templateUrl: 'views/home.html',
-      controller: 'HomeController as controller'
-    });
   $routeProvider.otherwise({redirectTo: '/'});
 };
 
 /**
+ * This error handler throws errors to the browsers native to ensure sourcemapping gets applied to stacktraces.
+ *
  * @param {!angular.$provide} $provide
  * @ngInject
  */

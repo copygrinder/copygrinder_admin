@@ -31,4 +31,16 @@ cgAdmin.HomeController.prototype.saveContent = function () {
   this.contentService_.saveContent(content);
 };
 
-cgAdmin.homeModule.controller('HomeController', cgAdmin.HomeController);
+/**
+ * @param {!angular.$routeProvider} $routeProvider
+ * @ngInject
+ */
+var route = function ($routeProvider) {
+  $routeProvider.when('/home', {
+    templateUrl: 'views/home.html',
+    controller: cgAdmin.HomeController,
+    controllerAs: 'ctrl'
+  });
+};
+
+cgAdmin.homeModule.config(route);
