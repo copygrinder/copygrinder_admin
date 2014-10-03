@@ -477,7 +477,6 @@ module.exports = function (grunt) {
       prepare1: [
         'htmllint',
         'jshint',
-        'lesslint',
         'prepare2'
       ]
     },
@@ -546,7 +545,7 @@ module.exports = function (grunt) {
         csslintrc: '.csslintrc'
       },
       app: {
-        src: ['<%= yeoman.mainTmp %>/styles/**/*.css']
+        src: ['<%= yeoman.mainTmp %>/styles/global.scss.css', '<%= yeoman.mainTmp %>/styles/pages/**/*.css']
       }
     }
 

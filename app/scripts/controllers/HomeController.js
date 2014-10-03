@@ -35,7 +35,8 @@ cgAdmin.HomeController.prototype.saveContent = function () {
  * @param {!angular.$routeProvider} $routeProvider
  * @ngInject
  */
-var route = function ($routeProvider) {
+var route = function ($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
   $routeProvider.when('/home', {
     templateUrl: 'views/home.html',
     controller: cgAdmin.HomeController,

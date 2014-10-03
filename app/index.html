@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <title>Copygrinder</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- build:css(app) styles/vendor.css -->
-        <!-- bower:css -->
-        <!-- endbower -->
+    <!-- build:css(.tmp/main) styles/vendor.css -->
+      <link href="styles/foundation.scss.css" rel="stylesheet" type="text/css">
     <!-- endbuild -->
 
     <!-- build:css(.tmp/main) styles/main.css -->
-        <!-- include: "type": "css", "files": "styles/**/*.css" -->
+      <link href="styles/global.scss.css" rel="stylesheet" type="text/css">
+        <!-- include: "type": "css", "files": "styles/pages/**/*.css" -->
     <!-- endbuild -->
 
   </head>
@@ -21,7 +21,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="container">
+    <div class="">
         <div data-ng-view></div>
     </div>
 

@@ -3,11 +3,19 @@
 goog.provide('cgAdmin.homeModule');
 
 /**
+ * @param {!angular.$locationProvider} $locationProvider
+ * @ngInject
+ */
+var locationFunc = function ($locationProvider) {
+  //$locationProvider.html5Mode(true);
+};
+
+/**
  * @param {!angular.$routeProvider} $routeProvider
  * @ngInject
  */
-var configFunc = function ($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/'});
+var routeFunc = function ($routeProvider) {
+  //$routeProvider.otherwise({redirectTo: '/home'});
 };
 
 /**
@@ -25,5 +33,6 @@ var errorConfig = function ($provide) {
 };
 
 cgAdmin.homeModule = angular.module('copygrinderHome', ['ngResource', 'ngRoute'])
-  .config(configFunc)
+  .config(locationFunc)
+  .config(routeFunc)
   .config(errorConfig);

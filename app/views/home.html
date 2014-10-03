@@ -1,13 +1,18 @@
-<div>
-    <form data-ng-submit="ctrl.saveContent()">
-
-        <div class="form-group">
-            <div>
-                <textarea data-ng-model="ctrl.content" class="form-control" id="content" name="" rows="10"></textarea>
+<div class="row">
+    <div class="small-12 columns">
+        <div class="accordion" data-accordion="myAccordionGroup">
+            <div class="accordion-navigation">
+                <a href="#panel1">Accordion 1</a>
+                <div id="panel1" class="content active">
+                    CONTENT
+                </div>
+            </div>
+            <div class="accordion-navigation">
+                <a href="#panel2">Accordion 2</a>
+                <div id="panel2" class="content">
+                    CONTENT2
+                </div>
             </div>
         </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
+    </div>
 </div>
-
