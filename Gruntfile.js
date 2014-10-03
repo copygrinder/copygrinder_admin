@@ -56,6 +56,10 @@ module.exports = function (grunt) {
         files: ['app/styles/**/*.less'],
         tasks: ['less', 'lesslint', 'newer:copy:styles', 'autoprefixer']
       },
+      sass: {
+        files: ['app/styles/**/*.scss'],
+        tasks: ['newer:copy:styles', 'sass', 'csslint', 'autoprefixer']
+      },
       angular: {
         files: ['<%= yeoman.app %>/views/**'],
         tasks: ['newer:htmllint', 'ngtemplates']
@@ -291,7 +295,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= yeoman.app %>/styles',
         dest: '<%= yeoman.mainTmp %>/styles/',
-        src: '**/*.{css,less}'
+        src: '**/*.{css,less,scss}'
       },
       cov1: {
         files: [
@@ -422,7 +426,7 @@ module.exports = function (grunt) {
         files: [
           {
             expand: false,
-            src: ['<%= yeoman.app %>/**/*.html']
+            src: ['<%= yeoman.app %>/*.html', '<%= yeoman.app %>/views/**/*.html']
           }
         ]
       },
@@ -494,7 +498,7 @@ module.exports = function (grunt) {
           'angular_pass': null,
           'generate_exports': null,
           'debug': null,
-          'formatting':'pretty_print'
+          'formatting': 'pretty_print'
         },
         execOpts: {
           maxBuffer: 999999 * 1024
@@ -518,7 +522,34 @@ module.exports = function (grunt) {
           }
         ]
       }
+    },
+
+    sass: {
+      options: {
+        sourceMap: true
+      },
+      dist: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= yeoman.mainTmp %>/styles/',
+            src: '**/*.scss',
+            dest: '<%= yeoman.mainTmp %>/styles/',
+            ext: '.scss.css'
+          }
+        ]
+      }
+    },
+
+    csslint: {
+      options: {
+        csslintrc: '.csslintrc'
+      },
+      app: {
+        src: ['<%= yeoman.mainTmp %>/styles/**/*.css']
+      }
     }
+
 
   });
 
@@ -585,6 +616,8 @@ module.exports = function (grunt) {
     'copy:scripts',
     'wiredep',
     'less',
+    'sass',
+    'csslint',
     'autoprefixer',
     'ngtemplates',
     'includeSource',
