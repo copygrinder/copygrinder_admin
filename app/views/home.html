@@ -1,13 +1,27 @@
 <div class="home-page row">
     <div class="small-12 columns">
         <div data-accordion data-close-others="oneAtATime">
-            <div data-accordion-group data-heading="Pages" data-is-open="true">
+            <div data-accordion-group data-heading="Copygrinder Home" data-is-open="true">
                 <ul class="small-block-grid-3">
-                    <li data-ng-repeat="page in ctrl.pages">
+                    <li data-ng-repeat="name in ctrl.singletons">
                         <div class="screenshot-container">
                             <a href="#">
                                 <img src="images/screenshot-placeholder.png" alt="screenshot">
-                                {{page}}
+                                {{name}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div data-accordion data-close-others="oneAtATime" data-ng-repeat="type in ctrl.types">
+            <div data-accordion-group data-heading="{{type.name}}">
+                <ul class="small-block-grid-3">
+                    <li data-ng-repeat="name in type.content">
+                        <div class="screenshot-container">
+                            <a href="#">
+                                <img src="images/screenshot-placeholder.png" alt="screenshot">
+                                {{name}}
                             </a>
                         </div>
                     </li>

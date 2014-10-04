@@ -22,7 +22,14 @@ cgAdmin.HomeController = function (contentService) {
   /**
    * @expose
    */
-  this.pages = ['Home Page', 'About Page', 'Blog Posts'];
+  this.singletons = [
+    'About Page', 'FAQ Page', 'Home Page'
+  ];
+
+  /**
+   * @expose
+   */
+  this.types = [{'name':'Blog Posts', 'content': ['Version Nightmares']}];
 
   this.contentService_ = contentService;
 
