@@ -1,1 +1,19 @@
 @import "../functions";
+
+.home-page {
+
+  .screenshot-container {
+    text-align: center;
+    background-color: #EFEFEF;
+    padding: 0.9375rem;
+    img:hover {
+      -webkit-filter: #{'saturate(2)'};
+    }
+  }
+
+  .accordion dd > .content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+}

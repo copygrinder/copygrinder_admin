@@ -1,8 +1,17 @@
-<div class="row">
+<div class="home-page row">
     <div class="small-12 columns">
         <div data-accordion data-close-others="oneAtATime">
             <div data-accordion-group data-heading="Pages" data-is-open="true">
-                Home Page
+                <ul class="small-block-grid-3">
+                    <li data-ng-repeat="page in ctrl.pages">
+                        <div class="screenshot-container">
+                            <a href="#">
+                                <img src="images/screenshot-placeholder.png" alt="screenshot">
+                                {{page}}
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

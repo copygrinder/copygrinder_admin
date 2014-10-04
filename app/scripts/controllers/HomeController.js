@@ -19,6 +19,11 @@ cgAdmin.HomeController = function (contentService) {
    */
   this.content = 'hello';
 
+  /**
+   * @expose
+   */
+  this.pages = ['Home Page', 'About Page', 'Blog Posts'];
+
   this.contentService_ = contentService;
 
 };
