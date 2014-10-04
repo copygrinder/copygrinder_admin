@@ -1,17 +1,8 @@
 <div class="row">
     <div class="small-12 columns">
-        <div class="accordion" data-accordion="myAccordionGroup">
-            <div class="accordion-navigation">
-                <a data-ng-href="#panel1">Accordion 1</a>
-                <div id="panel1" class="content active">
-                    CONTENT
-                </div>
-            </div>
-            <div class="accordion-navigation">
-                <a data-ng-href="#panel2">Accordion 2</a>
-                <div id="panel2" class="content">
-                    CONTENT3
-                </div>
+        <div data-accordion data-close-others="oneAtATime">
+            <div data-accordion-group data-heading="Pages" data-is-open="true">
+                Home Page
             </div>
         </div>
     </div>

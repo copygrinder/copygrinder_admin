@@ -2,11 +2,19 @@
 
 goog.provide('cgAdmin.homeModule');
 
+cgAdmin.homeModule = angular.module('copygrinderHome', [
+  'ngResource',
+  'ngRoute',
+  'mm.foundation.accordion',
+  'template/accordion/accordion-group.html',
+  'template/accordion/accordion.html'
+]);
+
 /**
  * @param {!angular.$locationProvider} $locationProvider
  * @ngInject
  */
-var locationFunc = function ($locationProvider) {
+cgAdmin.homeModule.locationFunc = function ($locationProvider) {
   $locationProvider.html5Mode(true);
 };
 
@@ -14,8 +22,8 @@ var locationFunc = function ($locationProvider) {
  * @param {!angular.$routeProvider} $routeProvider
  * @ngInject
  */
-var routeFunc = function ($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/home'});
+cgAdmin.homeModule.routeFunc = function ($routeProvider) {
+  $routeProvider.otherwise({templateUrl: 'views/404.html'});
 };
 
 /**
@@ -24,7 +32,7 @@ var routeFunc = function ($routeProvider) {
  * @param {!angular.$provide} $provide
  * @ngInject
  */
-var errorConfig = function ($provide) {
+cgAdmin.homeModule.errorConfig = function ($provide) {
   $provide.decorator('$exceptionHandler', ['$delegate', function ($delegate) {
     return function (exception, cause) {
       throw exception;
@@ -32,7 +40,8 @@ var errorConfig = function ($provide) {
   }]);
 };
 
-cgAdmin.homeModule = angular.module('copygrinderHome', ['ngResource', 'ngRoute'])
-  .config(locationFunc)
-  .config(routeFunc)
-  .config(errorConfig);
+
+cgAdmin.homeModule
+  .config(cgAdmin.homeModule.locationFunc)
+  .config(cgAdmin.homeModule.routeFunc)
+  .config(cgAdmin.homeModule.errorConfig);
