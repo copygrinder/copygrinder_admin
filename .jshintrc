@@ -18,6 +18,8 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "sub": true,
+  "expr": true,
   "globals": {
     "angular": false,
     "goog": false,

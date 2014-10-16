@@ -5,43 +5,23 @@ goog.require('cgAdmin.homeModule');
 goog.provide('cgAdmin.HomeController');
 
 /**
- * @param {cgAdmin.ContentService} contentService
  * @constructor
  * @export
- * @expose
- * @ngInject
  */
-cgAdmin.HomeController = function (contentService) {
-
-  /**
-   * @type {string}
-   * @expose
-   */
-  this.content = 'hello';
-
-  /**
-   * @expose
-   */
-  this.singletons = [
-    'About Page', 'FAQ Page', 'Home Page'
-  ];
-
-  /**
-   * @expose
-   */
-  this.types = [{'name':'Blog Posts', 'content': ['Version Nightmares']}];
-
-  this.contentService_ = contentService;
-
+cgAdmin.HomeController = function () {
 };
 
 /**
- * @expose
+ * @export
  */
-cgAdmin.HomeController.prototype.saveContent = function () {
-  var content = JSON.parse(this.content);
-  this.contentService_.saveContent(content);
-};
+cgAdmin.HomeController.prototype.singletons = [
+  'About Page', 'FAQ Page', 'Home Page'
+];
+
+/**
+ * @export
+ */
+cgAdmin.HomeController.prototype.types = [{'name':'Blog Posts', 'content': ['Version Nightmares']}];
 
 /**
  * @param {!angular.$routeProvider} $routeProvider

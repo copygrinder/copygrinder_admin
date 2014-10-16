@@ -7,7 +7,6 @@ goog.provide('cgAdmin.ContentService');
 /**
  * @param {!angular.$http} $http The Angular http service.
  * @constructor
- * @expose
  * @ngInject
  */
 cgAdmin.ContentService = function ($http) {
