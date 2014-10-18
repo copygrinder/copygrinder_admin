@@ -14,11 +14,17 @@ goog.provide('cgAdmin.HomeController');
  */
 cgAdmin.HomeController = function (contentService, $scope) {
   this.$scope = $scope;
-  contentService.getTypes('cardinality=One', function(data) {
+  contentService.getTypes('cardinality=One', function (data) {
     $scope.singleTypes = data;
   });
-  contentService.getTypes('cardinality=Many', function(data) {
-    $scope.manyTypes = data;
+  contentService.getTypes('cardinality=Many', function (typeData) {
+    $scope.manyTypes = typeData;
+    angular.forEach(typeData, function (type) {
+      contentService.getBeans('enforcedTypeIds=' + type.id, function (beans) {
+        type.beans = beans;
+      });
+
+    });
   });
 };
 
@@ -31,6 +37,11 @@ cgAdmin.HomeController.prototype.$scope.singleTypes;
  * @expose
  */
 cgAdmin.HomeController.prototype.$scope.manyTypes;
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.manyTypes.beans;
 
 /**
  * @param {!angular.$routeProvider} $routeProvider

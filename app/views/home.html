@@ -17,11 +17,11 @@
         <div data-accordion data-close-others="oneAtATime" data-ng-repeat="manyType in manyTypes">
             <div data-accordion-group data-heading="{{manyType.pluralTypeNoun}}">
                 <ul class="small-block-grid-3">
-                    <li data-ng-repeat="name in type.content">
+                    <li data-ng-repeat="bean in manyType.beans">
                         <div class="screenshot-container">
                             <a href="#">
                                 <img src="images/screenshot-placeholder.png" alt="screenshot">
-                                ummm
+                                {{bean.id}}
                             </a>
                         </div>
                     </li>
