@@ -11,15 +11,10 @@ goog.provide('cgAdmin.ContentService');
  */
 cgAdmin.ContentService = function ($http) {
 
-  this.http_ = $http;
+  this.getTypes = function(params, success) {
+    $http.get('http://127.0.0.1:19836/integrationtest/copybeans/types?' + params).success(success);
+  };
 
-};
-
-/**
- * @param {*} content
- */
-cgAdmin.ContentService.prototype.saveContent = function (content) {
-  this.http_.post('http://127.0.0.1:19836/copybeans/', content);
 };
 
 cgAdmin.homeModule.service('contentService', cgAdmin.ContentService);

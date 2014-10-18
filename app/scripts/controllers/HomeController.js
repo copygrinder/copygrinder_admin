@@ -7,9 +7,30 @@ goog.provide('cgAdmin.HomeController');
 /**
  * @constructor
  * @export
+ * @ngInject
+ * @param {!cgAdmin.ContentService} contentService
+ * @param {!angular.Scope} $scope
+ * @return {cgAdmin.HomeController}
  */
-cgAdmin.HomeController = function () {
+cgAdmin.HomeController = function (contentService, $scope) {
+  this.$scope = $scope;
+  contentService.getTypes('cardinality=One', function(data) {
+    $scope.singleTypes = data;
+  });
+  contentService.getTypes('cardinality=Many', function(data) {
+    $scope.manyTypes = data;
+  });
 };
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.singleTypes;
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.manyTypes;
 
 /**
  * @param {!angular.$routeProvider} $routeProvider
