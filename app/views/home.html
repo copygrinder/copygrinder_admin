@@ -1,21 +1,21 @@
 <div class="home-page row">
-    <div class="small-12 columns" data-cg-types="as test">{{test}}
+    <div class="small-12 columns" data-cg-types="cardinality=One as singletons">
         <div data-accordion data-close-others="oneAtATime">
             <div data-accordion-group data-heading="Copygrinder Home" data-is-open="true">
                 <ul class="small-block-grid-3">
-                    <li data-ng-repeat="name in ctrl.singletons">
+                    <li data-ng-repeat="singleton in singletons">
                         <div class="screenshot-container">
                             <a href="#">
                                 <img src="images/screenshot-placeholder.png" alt="screenshot">
-                                {{name}}
+                                {{singleton.singularTypeNoun}}
                             </a>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div data-accordion data-close-others="oneAtATime" data-ng-repeat="type in ctrl.types">
-            <div data-accordion-group data-heading="{{type.name}}">
+        <div data-accordion data-close-others="oneAtATime" data-ng-repeat="type in types">
+            <div data-accordion-group data-heading="{{type.pluralTypeNoun}}">
                 <ul class="small-block-grid-3">
                     <li data-ng-repeat="name in type.content">
                         <div class="screenshot-container">

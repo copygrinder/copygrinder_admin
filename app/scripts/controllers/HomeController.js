@@ -12,18 +12,6 @@ cgAdmin.HomeController = function () {
 };
 
 /**
- * @export
- */
-cgAdmin.HomeController.prototype.singletons = [
-  'About Page', 'FAQ Page', 'Home Page'
-];
-
-/**
- * @export
- */
-cgAdmin.HomeController.prototype.types = [{'name':'Blog Posts', 'content': ['Version Nightmares']}];
-
-/**
  * @param {!angular.$routeProvider} $routeProvider
  * @ngInject
  */

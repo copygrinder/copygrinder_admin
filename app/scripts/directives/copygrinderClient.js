@@ -7,12 +7,20 @@ goog.provide('cgAdmin.ClientDirective');
 /**
  * @constructor
  */
-cgAdmin.ClientDirective = function() {
-  //this.link = this.link.bind(this);
+cgAdmin.ClientDirective = function ($http) {
+
+  this._http = $http;
+
+  this.link = this.link.bind(this);
+
 };
 
-cgAdmin.ClientDirective.factory = function() {
-  var dir = new cgAdmin.ClientDirective();
+/**
+ * @param {angular.$http} $http The Angular http service.
+ * @ngInject
+ */
+cgAdmin.ClientDirective.factory = function ($http) {
+  var dir = new cgAdmin.ClientDirective($http);
   return {
     restrict: 'A',
     scope: false,
@@ -25,21 +33,30 @@ cgAdmin.ClientDirective.factory = function() {
  * @param {!angular.JQLite} elem
  * @param {!angular.Attributes} attrs
  */
-cgAdmin.ClientDirective.prototype.link = function(scope, elem, attrs) {
+cgAdmin.ClientDirective.prototype.link = function (scope, elem, attrs) {
   this.scope = scope;
   this.elem = elem;
   this.attrs = attrs;
+
   this.fetch();
 };
 
-cgAdmin.ClientDirective.prototype.fetch = function() {
+cgAdmin.ClientDirective.prototype.fetch = function () {
 
   var input = this.attrs['cgTypes'];
 
   var asIndex = input.lastIndexOf(' as ');
   var scopeVar = input.substring(asIndex + 4, input.length);
 
-  this.scope[scopeVar] = 'hi';
+  var queryParams = input.substring(0, asIndex);
+
+  var _this = this;
+
+  this._http.get('http://127.0.0.1:19836/integrationtest/copybeans/types?' + queryParams).success(function (data) {
+    console.log(data);
+    _this.scope[scopeVar] = data;
+  });
+
 };
 
 cgAdmin.homeModule.directive('cgTypes', cgAdmin.ClientDirective.factory);
