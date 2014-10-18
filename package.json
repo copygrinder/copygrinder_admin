@@ -32,7 +32,7 @@
     "grunt-ng-annotate": "0.3.2",
     "grunt-protractor-runner": "1.1.4",
     "grunt-rev": "0.1.0",
-    "grunt-sass": "0.14.2",
+    "grunt-sass": "0.16.0",
     "grunt-text-replace": "0.3.12",
     "grunt-usemin": "2.3.0",
     "grunt-wiredep": "^1.7.0",
