@@ -21,9 +21,11 @@ cgAdmin.HomeController = function (contentService, $scope) {
     $scope.manyTypes = typeData;
     angular.forEach(typeData, function (type) {
       contentService.getBeans('enforcedTypeIds=' + type.id, function (beans) {
+        angular.forEach(beans, function (bean) {
+          bean.name = bean.names[Object.keys(bean.names)[0]];
+        });
         type.beans = beans;
       });
-
     });
   });
 };
@@ -42,6 +44,11 @@ cgAdmin.HomeController.prototype.$scope.manyTypes;
  * @expose
  */
 cgAdmin.HomeController.prototype.$scope.manyTypes.beans;
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.manyTypes.beans.name;
 
 /**
  * @param {!angular.$routeProvider} $routeProvider
