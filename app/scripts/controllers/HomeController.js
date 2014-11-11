@@ -17,6 +17,9 @@ cgAdmin.HomeController = function (contentService, $scope) {
   contentService.getTypes('cardinality=One', function (data) {
     $scope.singleTypes = data;
   });
+  contentService.getBeans('enforcedTypeIds=copygrinderAdminMetatype', function (beans) {
+    $scope.siloName = beans[0].contains.siloName;
+  });
   contentService.getTypes('cardinality=Many', function (typeData) {
     $scope.manyTypes = typeData;
     angular.forEach(typeData, function (type) {
@@ -49,6 +52,11 @@ cgAdmin.HomeController.prototype.$scope.manyTypes.beans;
  * @expose
  */
 cgAdmin.HomeController.prototype.$scope.manyTypes.beans.name;
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.siloName;
 
 /**
  * @param {!angular.$routeProvider} $routeProvider

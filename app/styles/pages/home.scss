@@ -6,8 +6,10 @@
     text-align: center;
     background-color: #EFEFEF;
     padding: 0.9375rem;
-    img:hover {
-      -webkit-filter: #{'saturate(2)'};
+    &:hover {
+      img {
+        -webkit-filter: #{'saturate(2)'};
+      }
     }
   }
 
