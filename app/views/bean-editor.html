@@ -1,0 +1,12 @@
+<div class="bean-editor-page row">
+    <div class="small-12 columns">
+        <table data-ng-repeat="type in types">
+            <tbody>
+                <tr data-ng-repeat="field in type.fields">
+                    <td>{{field.id}}</td>
+                    <td>{{bean.contains[field.id]}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

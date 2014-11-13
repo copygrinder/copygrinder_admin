@@ -5,7 +5,7 @@
                 <ul class="small-block-grid-3">
                     <li data-ng-repeat="singleType in singleTypes">
                         <div class="screenshot-container">
-                            <a href="#">
+                            <a data-ng-href="bean/{{singleType.id}}">
                                 <img src="images/screenshot-placeholder.png" alt="screenshot">
                                 {{singleType.singularTypeNoun}}
                             </a>
@@ -19,7 +19,7 @@
                 <ul class="small-block-grid-3">
                     <li data-ng-repeat="bean in manyType.beans">
                         <div class="screenshot-container">
-                            <a href="#">
+                            <a data-ng-href="bean/{{bean.id}}">
                                 <img src="images/screenshot-placeholder.png" alt="screenshot">
                                 {{bean.name}}
                             </a>

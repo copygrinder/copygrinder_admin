@@ -19,6 +19,13 @@ cgAdmin.ContentService = function ($http) {
     $http.get('http://127.0.0.1:19836/integrationtest/copybeans?' + params).success(success);
   };
 
+  this.getBean = function(id, success) {
+    $http.get('http://127.0.0.1:19836/integrationtest/copybeans/' + id).success(success);
+  };
+
+  this.editBean = function(id, beanJson, success) {
+  };
+
 };
 
 cgAdmin.homeModule.service('contentService', cgAdmin.ContentService);

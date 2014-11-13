@@ -65,8 +65,7 @@ cgAdmin.HomeController.prototype.$scope.siloName;
 cgAdmin.HomeController.route = function ($routeProvider) {
   $routeProvider.when('/', {
     templateUrl: 'views/home.html',
-    controller: cgAdmin.HomeController,
-    controllerAs: 'ctrl'
+    controller: cgAdmin.HomeController
   });
 };
 
