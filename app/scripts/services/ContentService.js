@@ -23,9 +23,12 @@ cgAdmin.ContentService = function ($http) {
     $http.get('http://127.0.0.1:19836/integrationtest/copybeans/' + id).success(success);
   };
 
-  this.editBean = function(id, beanJson, success) {
+  this.editBean = function(bean, success) {
+    var newBean = angular.copy(bean);
+    delete newBean.id;
+    delete newBean.names;
+    $http.put('http://127.0.0.1:19836/integrationtest/copybeans/' + bean.id, newBean).success(success);
   };
-
 };
 
 cgAdmin.homeModule.service('contentService', cgAdmin.ContentService);
