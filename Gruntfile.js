@@ -414,7 +414,8 @@ module.exports = function (grunt) {
 
     includeSource: {
       options: {
-        basePath: '<%= yeoman.mainTmp %>'
+        basePath: '<%= yeoman.mainTmp %>',
+        baseUrl: '/'
       },
       app: {
         files: {
