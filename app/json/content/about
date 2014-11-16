@@ -1,8 +1,0 @@
-{
-    "id":"about",
-    "enforcedTypeIds":[],
-    "contains":{
-        "title": "About Us",
-        "body": "About Copygrinder"
-    }
-}

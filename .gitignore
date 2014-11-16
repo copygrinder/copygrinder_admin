@@ -7,3 +7,5 @@ npm-debug.log
 .idea
 .DS_Store
 app/components
+copygrinder_admin.iml
+.history

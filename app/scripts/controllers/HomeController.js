@@ -18,7 +18,7 @@ cgAdmin.HomeController = function (contentService, $scope) {
     $scope.singleTypes = data;
   });
   contentService.getBeans('enforcedTypeIds=copygrinderAdminMetatype', function (beans) {
-    $scope.siloName = beans[0].contains.siloName;
+    $scope.siloName = beans[0].content.siloName;
   });
   contentService.getTypes('cardinality=Many', function (typeData) {
     $scope.manyTypes = typeData;
