@@ -3,11 +3,11 @@
         <div data-accordion data-close-others="oneAtATime">
             <div data-accordion-group data-heading="{{siloName}}" data-is-open="true">
                 <ul class="small-block-grid-3">
-                    <li data-ng-repeat="singleType in singleTypes">
+                    <li data-ng-repeat="singleBean in singleBeans">
                         <div class="screenshot-container">
-                            <a data-ng-href="bean/{{singleType.id}}">
+                            <a data-ng-href="bean/{{singleBean.id}}">
                                 <img src="images/screenshot-placeholder.png" alt="screenshot">
-                                {{singleType.singularTypeNoun}}
+                                {{singleBean.name}}
                             </a>
                         </div>
                     </li>

@@ -14,8 +14,11 @@ goog.provide('cgAdmin.HomeController');
  */
 cgAdmin.HomeController = function (contentService, $scope) {
   this.$scope = $scope;
-  contentService.getTypes('cardinality=One', function (data) {
-    $scope.singleTypes = data;
+  contentService.getBeans('type.cardinality=One', function (beans) {
+    angular.forEach(beans, function (bean) {
+      bean.name = bean.names[Object.keys(bean.names)[0]];
+    });
+    $scope.singleBeans = beans;
   });
   contentService.getBeans('enforcedTypeIds=copygrinderAdminMetatype', function (beans) {
     $scope.siloName = beans[0].content.siloName;
@@ -36,7 +39,17 @@ cgAdmin.HomeController = function (contentService, $scope) {
 /**
  * @expose
  */
-cgAdmin.HomeController.prototype.$scope.singleTypes;
+cgAdmin.HomeController.prototype.$scope.singleBeans;
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.singleBeans.beans;
+
+/**
+ * @expose
+ */
+cgAdmin.HomeController.prototype.$scope.singleBeans.beans.name;
 
 /**
  * @expose
