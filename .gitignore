@@ -9,3 +9,5 @@ npm-debug.log
 app/components
 copygrinder_admin.iml
 .history
+.floo
+.flooignore

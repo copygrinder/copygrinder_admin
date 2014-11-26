@@ -1,12 +1,12 @@
 <div class="home-page row">
   <div class="small-12 columns">
-    {{siloName}}
+    {{type.displayName}}
     <ul class="small-block-grid-3">
-      <li data-ng-repeat="typeObj in typeObjs">
+      <li data-ng-repeat="bean in beans">
         <div class="screenshot-container">
-          <a data-ng-href="/type/{{typeObj.id}}">
+          <a data-ng-href="/bean/{{bean.id}}">
             <img src="/images/screenshot-placeholder.png" alt="screenshot">
-            {{typeObj.displayName}}
+            {{bean.names[type.id]}}
           </a>
         </div>
       </li>

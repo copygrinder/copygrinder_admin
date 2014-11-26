@@ -1,0 +1,25 @@
+@import "../functions";
+
+.not-found-page {
+
+  background-image: url("/images/404.jpg");
+  background-size: cover;
+  background-position: top right;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  padding-top: 0;
+  text-shadow: black 0.1rem 0.1rem;
+
+  .giant-text {
+    color: white;
+    font-size: 10vw;
+  }
+
+  .sub-giant-text {
+    color: white;
+    font-size: 4vw;
+  }
+
+}

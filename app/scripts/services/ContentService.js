@@ -15,6 +15,10 @@ cgAdmin.ContentService = function ($http) {
     $http.get('http://127.0.0.1:19836/integrationtest/copybeans/types?' + params).success(success);
   };
 
+  this.getType = function(id, success) {
+    $http.get('http://127.0.0.1:19836/integrationtest/copybeans/types/' + id).success(success);
+  };
+
   this.getBeans = function(params, success) {
     $http.get('http://127.0.0.1:19836/integrationtest/copybeans?' + params).success(success);
   };
