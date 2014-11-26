@@ -1,15 +1,20 @@
+<html>
+<head></head>
+<body>
 <div class="home-page row">
-  <div class="small-12 columns">
-    {{siloName}}
-    <ul class="small-block-grid-3">
-      <li data-ng-repeat="typeObj in typeObjs">
-        <div class="screenshot-container">
-          <a data-ng-href="/type/{{typeObj.id}}">
-            <img src="/images/screenshot-placeholder.png" alt="screenshot">
-            {{typeObj.displayName}}
-          </a>
-        </div>
-      </li>
-    </ul>
-  </div>
+    <div class="small-12 columns">
+        {{siloName}}
+        <ul class="small-block-grid-3">
+            <li data-ng-repeat="typeObj in typeObjs">
+                <div class="screenshot-container">
+                    <a data-ng-href="/type/{{typeObj.id}}">
+                        <img src="/images/screenshot-placeholder.png" alt="screenshot">
+                        {{typeObj.displayName}}
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
 </div>
+</body>
+</html>

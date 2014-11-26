@@ -1,15 +1,12 @@
-<div class="home-page row">
-  <div class="small-12 columns">
-    {{type.displayName}}
-    <ul class="small-block-grid-3">
-      <li data-ng-repeat="bean in beans">
-        <div class="screenshot-container">
-          <a data-ng-href="/bean/{{bean.id}}">
-            <img src="/images/screenshot-placeholder.png" alt="screenshot">
-            {{bean.names[type.id]}}
-          </a>
-        </div>
-      </li>
-    </ul>
-  </div>
+<div class="type-page row">
+    <div class="small-12 columns">
+        {{type.displayName}}
+        <ul>
+            <li data-ng-repeat="bean in beans">
+                <a data-ng-href="/bean/{{bean.id}}">
+                    {{bean.names[type.id]}}
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

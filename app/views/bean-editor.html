@@ -9,6 +9,14 @@
                 </tr>
                 </tbody>
             </table>
+            <table>
+                <tbody>
+                <tr data-ng-repeat="field in anonymousFields">
+                    <td>{{field}}</td>
+                    <td><input type="text" data-ng-model="bean.content[field]"></td>
+                </tr>
+                </tbody>
+            </table>
             <input class="button" type="submit">
         </form>
     </div>
