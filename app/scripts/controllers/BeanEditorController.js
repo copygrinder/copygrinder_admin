@@ -10,16 +10,15 @@ goog.provide('cgAdmin.BeanEditorController');
  * @ngInject
  * @param {!cgAdmin.ContentService} contentService
  * @param {!angular.Scope} $scope
- * @param {!angular.$routeParams} $routeParams
  * @param {!angular.$location} $location
  * @return {cgAdmin.BeanEditorController}
  */
-cgAdmin.BeanEditorController = function (contentService, $scope, $routeParams, $location) {
+cgAdmin.BeanEditorController = function (contentService, $scope, $stateParams, $location) {
   this.$scope = $scope;
-  this.$routeParams = $routeParams;
+  this.$stateParams = $stateParams;
   this.$location = $location;
   this.contentService = contentService;
-  var beanId = $routeParams.beanid;
+  var beanId = $stateParams.beanid;
   contentService.getBean(beanId, function (bean) {
     $scope.bean = bean;
     var decoratedTypeIds = bean.enforcedTypeIds.map(function (typeId) {
@@ -53,18 +52,6 @@ cgAdmin.BeanEditorController.prototype.saveBean = function () {
 };
 
 /**
- * @ngInject
- * @param {!angular.$routeProvider} $routeProvider
- */
-cgAdmin.BeanEditorController.route = function ($routeProvider) {
-  $routeProvider.when('/bean/:beanid', {
-    templateUrl: 'views/bean-editor.html',
-    controller: cgAdmin.BeanEditorController,
-    controllerAs: 'ctrl'
-  });
-};
-
-/**
  * @expose
  */
 cgAdmin.BeanEditorController.prototype.$scope.bean;
@@ -90,3 +77,15 @@ cgAdmin.BeanEditorController.prototype.$scope.types;
 cgAdmin.BeanEditorController.prototype.$scope.anonymousFields;
 
 cgAdmin.homeModule.config(cgAdmin.BeanEditorController.route);
+
+/**
+ * @ngInject
+ */
+cgAdmin.BeanEditorController.route = function ($stateProvider) {
+  $stateProvider.state('beanEditor', {
+    url: '/bean/:beanid',
+    templateUrl: 'views/bean-editor.html',
+    controller: cgAdmin.BeanEditorController,
+    controllerAs: 'ctrl'
+  });
+};
