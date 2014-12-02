@@ -4,7 +4,7 @@
             <table data-ng-repeat="type in types">
                 <tbody>
                 <tr data-ng-repeat="field in type.fields">
-                    <td>{{field.id}}</td>
+                    <td>{{field.displayName}}</td>
                     <td><input type="text" data-ng-model="bean.content[field.id]"></td>
                 </tr>
                 </tbody>
