@@ -5,7 +5,10 @@
                 <tbody>
                 <tr data-ng-repeat="field in type.fields">
                     <td>{{field.displayName}}</td>
-                    <td><input type="text" data-ng-model="bean.content[field.id]"></td>
+                    <td data-ng-switch data-on="field.type">
+                        <input data-ng-switch-when="Integer" type="number" data-ng-model="bean.content[field.id]">
+                        <input data-ng-switch-default type="text" data-ng-model="bean.content[field.id]">
+                    </td>
                 </tr>
                 </tbody>
             </table>

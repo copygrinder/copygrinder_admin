@@ -18,21 +18,26 @@ cgAdmin.BeanEditorController = function (contentService, $scope, $stateParams, $
   this.$stateParams = $stateParams;
   this.$location = $location;
   this.contentService = contentService;
-  var beanId = $stateParams.beanid;
-  contentService.getBean(beanId, function (bean) {
-    $scope.bean = bean;
-    contentService.getTypesByIds(bean.enforcedTypeIds, function (types) {
-      $scope.types = types;
+  this.fetchBean();
+};
+
+cgAdmin.BeanEditorController.prototype.fetchBean = function () {
+  var beanId = this.$stateParams.beanid;
+  var _this = this;
+  this.contentService.getBean(beanId, function (bean) {
+    _this.$scope.bean = bean;
+    _this.contentService.getTypesByIds(bean.enforcedTypeIds, function (types) {
+      _this.$scope.types = types;
       var typeDefinedFields = [];
       angular.forEach(types, function (type) {
         angular.forEach(type['fields'], function (field) {
           typeDefinedFields.push(field['id']);
         });
       });
-      var anonFields = Object.keys(bean['content']).filter(function(field) {
+      var anonFields = Object.keys(bean['content']).filter(function (field) {
         return typeDefinedFields.indexOf(field) === -1;
       });
-      $scope.anonymousFields = anonFields;
+      _this.$scope.anonymousFields = anonFields;
     });
   });
 };
@@ -71,6 +76,11 @@ cgAdmin.BeanEditorController.prototype.$scope.types;
  * @expose
  */
 cgAdmin.BeanEditorController.prototype.$scope.anonymousFields;
+
+/**
+ * @expose
+ */
+cgAdmin.BeanEditorController.prototype.$scope.calcType;
 
 cgAdmin.homeModule.config(cgAdmin.BeanEditorController.route);
 
