@@ -4,6 +4,8 @@ goog.require('cgAdmin.homeModule');
 
 goog.require('cgAdmin.CommunicationException');
 
+goog.require('cgAdmin.NotFoundException');
+
 goog.provide('cgAdmin.ContentService');
 
 /**
@@ -25,6 +27,9 @@ cgAdmin.ContentService = function ($http, $resource) {
   var defaultErrorCallback = function (errorResponse) {
     if (!errorResponse.data && !errorResponse.status) {
       throw new cgAdmin.CommunicationException(errorResponse);
+    }
+    if (errorResponse.status === 404) {
+      throw new cgAdmin.NotFoundException(errorResponse);
     }
     throw errorResponse.data;
   };
