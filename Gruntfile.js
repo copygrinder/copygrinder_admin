@@ -66,7 +66,7 @@ module.exports = function (grunt) {
       },
       index: {
         files: ['<%= yeoman.app %>/index.html'],
-        tasks: ['newer:htmllint', 'newer:copy:tmp', 'wiredep', 'includeSource']
+        tasks: ['newer:htmllint', 'newer:copy:tmp', 'includeSource']
       }
     },
 
@@ -643,7 +643,6 @@ module.exports = function (grunt) {
     'copy:tmp',
     'copy:styles',
     'copy:scripts',
-    'wiredep',
     'less',
     'sass',
     'csslint',

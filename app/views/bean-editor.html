@@ -1,26 +1,44 @@
-<div class="bean-editor-page row">
-    <div class="small-12 columns">
-        <form data-ng-submit="ctrl.saveBean()">
-            <table data-ng-repeat="type in types">
-                <tbody>
-                <tr data-ng-repeat="field in type.fields">
-                    <td>{{field.displayName}}</td>
-                    <td data-ng-switch data-on="field.type">
-                        <input data-ng-switch-when="Integer" type="number" data-ng-model="bean.content[field.id]">
-                        <input data-ng-switch-default type="text" data-ng-model="bean.content[field.id]">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <table>
-                <tbody>
-                <tr data-ng-repeat="field in anonymousFields">
-                    <td>{{field}}</td>
-                    <td><input type="text" data-ng-model="bean.content[field]"></td>
-                </tr>
-                </tbody>
-            </table>
-            <input class="button" type="submit">
-        </form>
-    </div>
+<div class="bean-editor-page">
+    <form data-ng-submit="ctrl.saveBean()">
+        <div class="row">
+            <div class="small-12 columns">
+                <table data-ng-repeat="type in types">
+                    <tbody>
+                    <tr data-ng-repeat="field in type.fields">
+                        <td class="label-cell">{{field.displayName}}</td>
+                        <td data-ng-switch data-on="field.type">
+                            <input data-ng-switch-when="Integer" type="number" data-ng-model="bean.content[field.id]">
+                            <input data-ng-switch-default type="text" data-ng-model="bean.content[field.id]">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                    <tr data-ng-repeat="field in untypedFields">
+                        <td class="label-cell">
+                            <input type="text" data-ng-model="field.id" id="label-field-{{field.id}}"
+                                   data-ng-class="{'auto-hide': field.id != ''}"
+                                   data-ng-model-options="{ updateOn: 'blur'}">
+                        </td>
+                        <td>
+                            <input type="text" data-ng-model="bean.content[field.id]" id="value-field-{{field.id}}">
+                        </td>
+                        <td class="delete-cell">
+                            <input type="button" value="X" data-ng-click="ctrl.deleteRow($index)">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-6 columns">
+                <input class="button" type="button" value="Add Field" data-ng-click="ctrl.addRow()">
+            </div>
+            <div class="small-6 columns submit-container">
+                <input class="button" type="submit" value="Save">
+            </div>
+        </div>
+    </form>
 </div>

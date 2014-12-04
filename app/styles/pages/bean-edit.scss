@@ -9,4 +9,34 @@
     }
   }
 
+  .submit-container {
+    text-align: right;
+  }
+
+  .label-cell {
+    width: 1px;
+    white-space: nowrap;
+    input {
+      width: auto;
+    }
+    .auto-hide {
+      &:not(:focus) {
+        border-color: transparent;
+        background: transparent;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .delete-cell {
+    width: 1px;
+    input {
+      background-color: #FF2800;
+      &:hover, &:focus {
+        background-color: #B01B00;
+      }
+      border-color: #B01B00;
+    }
+  }
+
 }

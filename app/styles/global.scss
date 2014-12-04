@@ -11,3 +11,14 @@
     font-size:150%;
   }
 }
+
+input[type="button"] {
+  background-color: #00CE46;
+  color: white;
+
+  &:hover, &:focus {
+    background-color: #00A538;
+  }
+
+  border-color: #00A538;
+}
