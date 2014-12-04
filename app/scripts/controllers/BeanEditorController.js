@@ -21,11 +21,7 @@ cgAdmin.BeanEditorController = function (contentService, $scope, $stateParams, $
   var beanId = $stateParams.beanid;
   contentService.getBean(beanId, function (bean) {
     $scope.bean = bean;
-    var decoratedTypeIds = bean.enforcedTypeIds.map(function (typeId) {
-      return 'id=' + typeId;
-    });
-    var params = decoratedTypeIds.join('&or&');
-    contentService.getTypes(params, function (types) {
+    contentService.getTypesByIds(bean.enforcedTypeIds, function (types) {
       $scope.types = types;
       var typeDefinedFields = [];
       angular.forEach(types, function (type) {

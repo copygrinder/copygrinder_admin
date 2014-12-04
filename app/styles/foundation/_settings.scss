@@ -1,12 +1,12 @@
 @import "../../components/foundation/scss/foundation/functions";
 
 
-$tiny-range: (0, 480px); /* 0, 480px */
-$small-range: (481px, 640px); /* 481px, 640px */
-$medium-range: (641px, 1024px); /* 641px, 1024px */
-$large-range: (1025px, 1440px); /* 1025px, 1440px */
-$xlarge-range: (1441px, 1920px); /* 1441px, 1920px */
-$xxlarge-range: (1921px); /* 1921px */
+$tiny-range: (0, 400px);
+$small-range: (401px, 720px);
+$medium-range: (721px, 1024px);
+$large-range: (1025px, 1440px);
+$xlarge-range: (1441px, 1920px);
+$xxlarge-range: (1921px);
 
 
 $include-xl-html-grid-classes: true;

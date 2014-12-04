@@ -4,7 +4,6 @@ goog.provide('cgAdmin.homeModule');
 
 cgAdmin.homeModule = angular.module('copygrinderHome', [
   'ngResource',
-  'ngRoute',
   'ui.router',
   'mm.foundation.accordion',
   'template/accordion/accordion-group.html',
@@ -27,7 +26,7 @@ cgAdmin.homeModule.routeFunc = function ($urlRouterProvider, $stateProvider) {
   $stateProvider.state('404', {templateUrl: 'views/404.html'});
 
   $stateProvider.state('error', {
-    template: 'OH NOES! {{$root.exception}}'
+    templateUrl: 'views/error.html'
   });
 
   $urlRouterProvider.otherwise(function ($injector, $location) {
@@ -48,7 +47,6 @@ cgAdmin.homeModule.errorConfig = function ($provide) {
   $provide.decorator('$exceptionHandler', ['$delegate', '$injector', function ($delegate, $injector) {
     var $state;
     return function (exception, cause) {
-      console.log('error world');
       $state = $state || $injector.get('$state');
       $state.go('error');
       setTimeout(function(){throw exception;}, 100);

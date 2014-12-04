@@ -39,7 +39,7 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
   });
 
   var getBeansPromise = promise(function (deferred) {
-    contentService.getBeans('enforcedTypeIds=' + typeId, function (beans) {
+    contentService.getBeansByType(typeId, function (beans) {
       $scope.beans = beans;
       deferred.resolve(beans);
     });
@@ -53,7 +53,7 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
       $location.path('/bean/' + beans[0].id).replace();
     }
   }, function (reason) {
-    console.log(reason);
+    throw reason;
   });
 
 

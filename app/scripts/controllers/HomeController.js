@@ -15,10 +15,10 @@ goog.provide('cgAdmin.HomeController');
 cgAdmin.HomeController = function (contentService, $scope) {
   this.$scope = $scope;
 
-  contentService.getBeans('enforcedTypeIds=copygrinderAdminMetatype&fields=content', function (beans) {
+  contentService.getMetaBean(function (beans) {
     $scope.siloName = beans[0].content.siloName;
   });
-  contentService.getTypes('fields=id,displayName,cardinality', function (typeData) {
+  contentService.getTypesSummary(function (typeData) {
     $scope.typeObjs = typeData;
   });
 };

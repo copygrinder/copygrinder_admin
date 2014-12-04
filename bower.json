@@ -7,7 +7,6 @@
     "angular": "1.2.x",
     "json3": "~3.3.1",
     "es5-shim": "~3.1.0",
-    "angular-route": "1.2.x",
     "angular-resource": "1.2.x",
     "foundation": "5.4.5",
     "angular-foundation": "0.3.1",
