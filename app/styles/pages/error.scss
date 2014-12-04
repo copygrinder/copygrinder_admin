@@ -1,6 +1,6 @@
 @import "../foundation/settings";
 
-.not-found-page {
+.error-page {
 
   background-image: url("/images/404.jpg");
   background-size: cover;
@@ -12,14 +12,19 @@
   padding-top: 0;
   text-shadow: black 0.1rem 0.1rem;
 
+  color: white;
   .giant-text {
-    color: white;
     font-size: 9.5vw;
   }
 
   .sub-giant-text {
-    color: white;
     font-size: 4vw;
+    padding-left: 0.5vw;
+  }
+
+  .sub-sub-giant-text {
+    font-size: 2vw;
+    padding-left: 0.85vw;
   }
 
 }

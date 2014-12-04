@@ -2,6 +2,8 @@
 
 goog.require('cgAdmin.homeModule');
 
+goog.require('cgAdmin.CommunicationException');
+
 goog.provide('cgAdmin.ContentService');
 
 /**
@@ -21,6 +23,9 @@ cgAdmin.ContentService = function ($http, $resource) {
   });
 
   var defaultErrorCallback = function (errorResponse) {
+    if (!errorResponse.data && !errorResponse.status) {
+      throw new cgAdmin.CommunicationException(errorResponse);
+    }
     throw errorResponse.data;
   };
 

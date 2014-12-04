@@ -2,6 +2,9 @@
 
 goog.provide('cgAdmin.homeModule');
 
+goog.require('cgAdmin.CommunicationException');
+
+
 cgAdmin.homeModule = angular.module('copygrinderHome', [
   'ngResource',
   'ui.router',
@@ -23,10 +26,14 @@ cgAdmin.homeModule.locationFunc = function ($locationProvider) {
  */
 cgAdmin.homeModule.routeFunc = function ($urlRouterProvider, $stateProvider) {
 
-  $stateProvider.state('404', {templateUrl: 'views/404.html'});
+  $stateProvider.state('404', {templateUrl: 'views/error/404.html'});
 
   $stateProvider.state('error', {
-    templateUrl: 'views/error.html'
+    templateUrl: 'views/error/error.html'
+  });
+
+  $stateProvider.state('communicationError', {
+    templateUrl: 'views/error/communication.html'
   });
 
   $urlRouterProvider.otherwise(function ($injector, $location) {
@@ -48,8 +55,14 @@ cgAdmin.homeModule.errorConfig = function ($provide) {
     var $state;
     return function (exception, cause) {
       $state = $state || $injector.get('$state');
-      $state.go('error');
-      setTimeout(function(){throw exception;}, 100);
+      if (exception instanceof cgAdmin.CommunicationException) {
+        $state.go('communicationError');
+      } else {
+        $state.go('error');
+        setTimeout(function () {
+          throw exception;
+        }, 100);
+      }
     };
   }]);
 };
