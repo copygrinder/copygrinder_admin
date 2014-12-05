@@ -30,6 +30,9 @@
                     </tr>
                     </tbody>
                 </table>
+                <table data-ng-if="!hasFields && (!untypedFields || untypedFields.length < 1)">
+                    <tr><td>There are no fields to display.</td></tr>
+                </table>
             </div>
         </div>
         <div class="row">

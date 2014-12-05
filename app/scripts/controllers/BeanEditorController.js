@@ -19,6 +19,9 @@ cgAdmin.BeanEditorController = function(contentService, $scope, $stateParams, $l
   this.$location = $location;
   this.contentService = contentService;
   this.$timeout = $timeout;
+
+  $scope['hasFields'] = true;
+
   this.fetchBean();
 };
 
@@ -35,6 +38,9 @@ cgAdmin.BeanEditorController.prototype.fetchBean = function() {
           typeDefinedFields.push(field['id']);
         });
       });
+      if (!typeDefinedFields || typeDefinedFields.length < 1) {
+        _this.$scope['hasFields'] = false;
+      }
       var untypedFields = Object.keys(bean['content']).filter(function(field) {
         return typeDefinedFields.indexOf(field) === -1;
       });
