@@ -15,7 +15,7 @@ function angularExtern() {
    * @param {!Function} errorFunc
    * @return {!angular.$http.HttpPromise}
    */
-  angular.$resource.query = function (url, successFunc, errorFunc) {
+  angular.$resource.query = function(url, successFunc, errorFunc) {
   };
 
   /**
@@ -25,7 +25,17 @@ function angularExtern() {
    * @param {!Function} errorFunc
    * @return {!angular.$http.HttpPromise}
    */
-  angular.$resource.get = function (obj, successFunc, errorFunc) {
+  angular.$resource.get = function(obj, successFunc, errorFunc) {
+  };
+
+  /**
+   * @expose
+   * @param {!Object} obj
+   * @param {!Function} successFunc
+   * @param {!Function} errorFunc
+   * @return {!angular.$http.HttpPromise}
+   */
+  angular.$resource.save = function(obj, successFunc, errorFunc) {
   };
 
 }

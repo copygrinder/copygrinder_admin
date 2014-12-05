@@ -12,7 +12,7 @@ goog.provide('cgAdmin.ContentService');
  * @constructor
  * @ngInject
  */
-cgAdmin.ContentService = function ($http, $resource) {
+cgAdmin.ContentService = function($http, $resource) {
 
   var root = 'http://127.0.0.1:19836/integrationtest';
 
@@ -24,7 +24,7 @@ cgAdmin.ContentService = function ($http, $resource) {
     'update': {method: 'PUT'}
   });
 
-  var defaultErrorCallback = function (errorResponse) {
+  var defaultErrorCallback = function(errorResponse) {
     if (!errorResponse.data && !errorResponse.status) {
       throw new cgAdmin.CommunicationException(errorResponse);
     }
@@ -42,39 +42,44 @@ cgAdmin.ContentService = function ($http, $resource) {
     }
   }
 
-  this.getTypesSummary = function (successFunc, errorFunc) {
+  this.getTypesSummary = function(successFunc, errorFunc) {
     CopybeanTypeResource.query({'fields': 'id,displayName,cardinality'}, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.getTypesByIds = function (ids, successFunc, errorFunc) {
+  this.getTypesByIds = function(ids, successFunc, errorFunc) {
     CopybeanTypeResource.query({'id~': ids}, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.getType = function (id, successFunc, errorFunc) {
+  this.getType = function(id, successFunc, errorFunc) {
     CopybeanTypeResource.get({'id': id}, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.getBeansByType = function (typeId, successFunc, errorFunc) {
+  this.getBeansByType = function(typeId, successFunc, errorFunc) {
     CopybeanResource.query({'enforcedTypeIds': typeId}, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.getMetaBean = function (successFunc, errorFunc) {
+  this.getMetaBean = function(successFunc, errorFunc) {
     CopybeanResource.query({
       'enforcedTypeIds': 'copygrinderAdminMetatype',
       'fields': 'content'
     }, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.getBean = function (id, successFunc, errorFunc) {
+  this.getBean = function(id, successFunc, errorFunc) {
     CopybeanResource.get({'id': id}, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.editBean = function (bean, successFunc, errorFunc) {
+  this.editBean = function(bean, successFunc, errorFunc) {
     var newBean = angular.copy(bean);
     delete newBean.id;
     delete newBean.names;
     CopybeanResource.update({'id': bean.id}, newBean, successFunc, defaultErrorHandler(errorFunc));
   };
+
+  this.saveBean = function(bean, successFunc, errorFunc) {
+    CopybeanResource.save(bean, successFunc, defaultErrorHandler(errorFunc));
+  };
+
 };
 
 cgAdmin.homeModule.service('contentService', cgAdmin.ContentService);
