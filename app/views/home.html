@@ -1,20 +1,27 @@
 <html>
 <head></head>
 <body>
-<div class="home-page row">
-    <div class="small-12 columns">
-        {{siloName}}
-        <ul class="tiny-block-grid-1 small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-            <li data-ng-repeat="typeObj in typeObjs">
-                <div class="screenshot-container">
-                    <a data-ng-href="/type/{{typeObj.id}}">
-                        <img src="/images/screenshot-placeholder.png" alt="screenshot">
-                        {{typeObj.displayName}}
-                    </a>
-                </div>
-            </li>
-        </ul>
+    <div class="home-page row">
+        <div class="small-12 columns">
+            {{siloName}}
+            <ul class="tiny-block-grid-1 small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+                <li data-ng-repeat="typeObj in typeObjs">
+                    <div class="screenshot-container">
+                        <div class="edit-title-container">
+                            <a data-ng-href="/type/{{typeObj.id}}/edit">
+                                <span class="fi-page-edit" title="Edit Type"></span>
+                            </a>
+                        </div>
+                        <div>
+                            <a data-ng-href="/type/{{typeObj.id}}">
+                                <img src="/images/screenshot-placeholder.png" alt="screenshot">
+                                {{typeObj.displayName}}
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 </body>
 </html>

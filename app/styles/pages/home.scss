@@ -11,6 +11,7 @@
         -webkit-filter: #{'saturate(2)'};
       }
     }
+    position: relative;
   }
 
   .accordion dd > .content {
@@ -18,4 +19,11 @@
     padding-top: 1.25rem;
   }
 
+  .edit-title-container {
+    font-size: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    z-index: 1;
+  }
 }
