@@ -13,12 +13,12 @@
 }
 
 input[type="button"] {
-  background-color: #00CE46;
+  background-color: $bright-green;
   color: white;
 
   &:hover, &:focus {
-    background-color: #00A538;
+    background-color: $dark-green;
   }
 
-  border-color: #00A538;
+  border-color: $dark-green;
 }

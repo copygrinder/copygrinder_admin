@@ -25,6 +25,7 @@ cgAdmin.ContentService = function($http, $resource) {
   });
 
   var defaultErrorCallback = function(errorResponse) {
+    console.log(errorResponse);
     if (!errorResponse.data && !errorResponse.status) {
       throw new cgAdmin.CommunicationException(errorResponse);
     }
@@ -78,6 +79,10 @@ cgAdmin.ContentService = function($http, $resource) {
 
   this.saveBean = function(bean, successFunc, errorFunc) {
     CopybeanResource.save(bean, successFunc, defaultErrorHandler(errorFunc));
+  };
+
+  this.saveType = function(type, successFunc, errorFunc) {
+    CopybeanTypeResource.update({'id': type.id}, type, successFunc, defaultErrorHandler(errorFunc));
   };
 
 };

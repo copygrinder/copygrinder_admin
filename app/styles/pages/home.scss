@@ -25,5 +25,10 @@
     right: 1rem;
     top: 0.5rem;
     z-index: 1;
+
+    a:hover {
+      color: $bright-green;
+    }
+
   }
 }

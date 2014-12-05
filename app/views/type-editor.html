@@ -1,0 +1,59 @@
+<div class="type-editor-page">
+    <form data-ng-submit="ctrl.saveType()">
+        <div class="row">
+            <div class="small-12 columns">
+
+                <fieldset>
+                    <label>ID
+                        <input type="text" data-ng-model="type.id" required/>
+                    </label>
+                    <label>Display Name
+                        <input type="text" data-ng-model="type.displayName"/>
+                    </label>
+                    <label>Instance Name Format
+                        <input type="text" data-ng-model="type.instanceNameFormat"/>
+                    </label>
+                    <label>Cardinality
+                        <input type="text" data-ng-model="type.cardinality" required/>
+                    </label>
+                </fieldset>
+
+                <fieldset data-ng-repeat="field in type.fields">
+                    <label>Field ID
+                        <input type="text" data-ng-model="field.id" required/>
+                    </label>
+                    <label>Field Display Name
+                        <input type="text" data-ng-model="field.displayName" required/>
+                    </label>
+                    <label>Field Type
+                        <input type="text" data-ng-model="field.type" required/>
+                    </label>
+                </fieldset>
+
+
+                <fieldset data-ng-repeat="validator in type.validators">
+                    <label>Validator Type
+                        <input type="text" data-ng-model="validator.type" required/>
+                    </label>
+
+                    <table>
+                        <tr data-ng-repeat="(key, value) in validator.args">
+                            <td>
+                                <input type="text" data-ng-model="key" required/>
+                            </td>
+                            <td>
+                                <input type="text" data-ng-model="value" required/>
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns submit-container">
+                <input class="button right" type="submit" value="Save">
+            </div>
+        </div>
+    </form>
+</div>

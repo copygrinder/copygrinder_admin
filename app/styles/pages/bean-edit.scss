@@ -31,11 +31,11 @@
   .delete-cell {
     width: 1px;
     input {
-      background-color: #FF2800;
+      background-color: $bright-red;
       &:hover, &:focus {
-        background-color: #B01B00;
+        background-color: $dark-red;
       }
-      border-color: #B01B00;
+      border-color: $dark-red;
     }
   }
 
