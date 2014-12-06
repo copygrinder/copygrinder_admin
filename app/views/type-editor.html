@@ -4,48 +4,83 @@
             <div class="small-12 columns">
 
                 <fieldset>
-                    <label>ID
-                        <input type="text" data-ng-model="type.id" required/>
-                    </label>
-                    <label>Display Name
-                        <input type="text" data-ng-model="type.displayName"/>
-                    </label>
-                    <label>Instance Name Format
-                        <input type="text" data-ng-model="type.instanceNameFormat"/>
-                    </label>
-                    <label>Cardinality
-                        <input type="text" data-ng-model="type.cardinality" required/>
-                    </label>
+                    <div class="row">
+                        <div class="small-6 columns">
+                            <label>ID
+                                <input type="text" data-ng-model="type.id" required/>
+                            </label>
+                        </div>
+                        <div class="small-6 columns">
+                            <label>Display Name
+                                <input type="text" data-ng-model="type.displayName"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-12 columns">
+                            <label>Instance Name Format
+                                <input type="text" data-ng-model="type.instanceNameFormat"/>
+                            </label>
+                            <label>Cardinality
+                                <select data-ng-model="type.cardinality" required>
+                                    <option value="">Please select</option>
+                                    <option label="One" value="One"></option>
+                                    <option label="Many" value="Many"></option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
                 </fieldset>
 
-                <fieldset data-ng-repeat="field in type.fields">
-                    <label>Field ID
-                        <input type="text" data-ng-model="field.id" required/>
-                    </label>
-                    <label>Field Display Name
-                        <input type="text" data-ng-model="field.displayName" required/>
-                    </label>
-                    <label>Field Type
-                        <input type="text" data-ng-model="field.type" required/>
-                    </label>
+                <fieldset>
+                    <div data-ng-repeat="field in type.fields" class="row">
+                        <div class="medium-4 columns">
+                            <label>Field ID
+                                <input type="text" data-ng-model="field.id" required/>
+                            </label>
+                        </div>
+                        <div class="medium-4 columns">
+                            <label>Field Display Name
+                                <input type="text" data-ng-model="field.displayName" required/>
+                            </label>
+                        </div>
+                        <div class="medium-4 columns">
+                            <label>Field Type
+                                <select data-ng-model="field.type" required>
+                                    <option value="">Please select</option>
+                                    <option label="String" value="String"></option>
+                                    <option label="Integer" value="Integer"></option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
                 </fieldset>
 
 
-                <fieldset data-ng-repeat="validator in type.validators">
-                    <label>Validator Type
-                        <input type="text" data-ng-model="validator.type" required/>
-                    </label>
+                <fieldset>
+                    <div class="row" data-ng-repeat="validator in type.validators">
+                        <div class="medium-4 columns">
 
-                    <table>
-                        <tr data-ng-repeat="(key, value) in validator.args">
-                            <td>
-                                <input type="text" data-ng-model="key" required/>
-                            </td>
-                            <td>
-                                <input type="text" data-ng-model="value" required/>
-                            </td>
-                        </tr>
-                    </table>
+                            <label>Validator Type
+                                <select data-ng-model="validator.type" required>
+                                    <option value="">Please select</option>
+                                    <option label="Required" value="required"></option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="medium-8 columns">
+                            <table class="validator-args-table">
+                                <tr data-ng-repeat="(key, value) in validator.args">
+                                    <td>
+                                        <input type="text" data-ng-model="key" required/>
+                                    </td>
+                                    <td>
+                                        <input type="text" data-ng-model="value" required/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </fieldset>
 
             </div>

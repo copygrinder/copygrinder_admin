@@ -21,17 +21,17 @@ cgAdmin.NewBeanController = function(contentService, $scope, $stateParams, $loca
   cgAdmin.BeanControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout);
 
   var typeId = $stateParams['typeId'];
-
   this.fetchType(typeId);
-
   this.buildBean(typeId);
-
 };
 
 cgAdmin.NewBeanController.prototype.fetchType = function(typeId) {
   var _this = this;
   this.contentService.getType(typeId, function(beanType) {
     _this.$scope.types = [beanType];
+    if (!beanType['fields'] || beanType['fields'].length < 1) {
+      _this.$scope['hasFields'] = false;
+    }
   });
 };
 
