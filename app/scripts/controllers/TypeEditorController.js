@@ -42,6 +42,28 @@ cgAdmin.TypeEditorController.prototype.saveType = function() {
 };
 
 /**
+ * @expose
+ */
+cgAdmin.TypeEditorController.prototype.addField = function() {
+  if (!this.$scope.type.fields) {
+    this.$scope.type.fields = [];
+  }
+  this.$scope.type.fields.push({});
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeEditorController.prototype.deleteField = function(index) {
+  this.$scope.type.fields.splice(index, 1);
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeEditorController.prototype.$scope.type.fields;
+
+/**
  * @ngInject
  */
 cgAdmin.TypeEditorController.route = function($stateProvider) {

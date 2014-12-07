@@ -34,7 +34,7 @@
 
                 <fieldset>
                     <div data-ng-repeat="field in type.fields" class="row">
-                        <div class="medium-4 columns">
+                        <div class="medium-3 columns">
                             <label>Field ID
                                 <input type="text" data-ng-model="field.id" required/>
                             </label>
@@ -53,7 +53,11 @@
                                 </select>
                             </label>
                         </div>
+                        <div class="medium-1 columns delete-col">
+                            <input type="button" value="X" data-ng-click="ctrl.deleteField($index)" />
+                        </div>
                     </div>
+                    <input type="button" value="Add Field" data-ng-click="ctrl.addField()">
                 </fieldset>
 
 
