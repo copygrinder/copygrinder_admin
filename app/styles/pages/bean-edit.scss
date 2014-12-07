@@ -1,12 +1,9 @@
-@import "../foundation/settings";
+@import "../mixins/includes";
 
 .bean-editor-page {
 
   table, tr {
     width: 100%;
-    input {
-      margin-bottom: 0;
-    }
   }
 
   .submit-container {
@@ -31,12 +28,12 @@
   .delete-cell {
     width: 1px;
     input {
-      background-color: $bright-red;
-      &:hover, &:focus {
-        background-color: $dark-red;
-      }
-      border-color: $dark-red;
+      @include red-button;
     }
+  }
+
+  .delete-button {
+    @include red-button;
   }
 
 }

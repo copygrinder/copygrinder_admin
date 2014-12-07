@@ -13,31 +13,36 @@
                     </tr>
                     </tbody>
                 </table>
-                <table>
-                    <tbody>
-                    <tr data-ng-repeat="field in untypedFields">
-                        <td class="label-cell">
-                            <input type="text" data-ng-model="field.id" id="label-field-{{field.id}}"
-                                   data-ng-class="{'auto-hide': field.id != ''}"
-                                   data-ng-model-options="{ updateOn: 'blur'}">
-                        </td>
-                        <td>
-                            <input type="text" data-ng-model="bean.content[field.id]" id="value-field-{{field.id}}">
-                        </td>
-                        <td class="delete-cell">
-                            <input type="button" value="X" data-ng-click="ctrl.deleteRow($index)">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table data-ng-if="!hasFields && (!untypedFields || untypedFields.length < 1)">
-                    <tr><td>There are no fields to display.</td></tr>
-                </table>
+                <fieldset>
+                    <table>
+                        <tbody>
+                        <tr data-ng-repeat="field in untypedFields">
+                            <td class="label-cell">
+                                <input type="text" data-ng-model="field.id" id="label-field-{{field.id}}"
+                                       data-ng-class="{'auto-hide': field.id != ''}"
+                                       data-ng-model-options="{ updateOn: 'blur'}">
+                            </td>
+                            <td>
+                                <input type="text" data-ng-model="bean.content[field.id]" id="value-field-{{field.id}}">
+                            </td>
+                            <td class="delete-cell">
+                                <input type="button" value="X" data-ng-click="ctrl.deleteRow($index)">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table data-ng-if="!hasFields && (!untypedFields || untypedFields.length < 1)">
+                        <tr>
+                            <td>There are no fields to display.</td>
+                        </tr>
+                    </table>
+                    <input class="button" type="button" value="Add Field" data-ng-click="ctrl.addRow()">
+                </fieldset>
             </div>
         </div>
         <div class="row">
             <div class="small-6 columns">
-                <input class="button" type="button" value="Add Field" data-ng-click="ctrl.addRow()">
+                <input class="button delete-button" type="button" value="Delete">
             </div>
             <div class="small-6 columns submit-container">
                 <input class="button" type="submit" value="Save">

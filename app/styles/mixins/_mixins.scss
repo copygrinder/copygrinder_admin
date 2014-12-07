@@ -1,0 +1,15 @@
+@mixin red-button {
+  background-color: $bright-red;
+  color: white;
+  &:hover, &:focus {
+    background-color: $dark-red;
+  }
+}
+
+@mixin green-button {
+  background-color: $bright-green;
+  color: white;
+  &:hover, &:focus {
+    background-color: $dark-green;
+  }
+}

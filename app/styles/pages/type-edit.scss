@@ -1,14 +1,11 @@
-@import "../foundation/settings";
+@import "../mixins/includes";
 
 .type-editor-page {
 
   .row div.delete-col {
     padding-top: 1.6rem;
     input {
-      background-color: $bright-red;
-      &:hover, &:focus {
-        background-color: $dark-red;
-      }
+      @include red-button;
     }
   }
 

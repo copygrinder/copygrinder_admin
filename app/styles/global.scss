@@ -1,27 +1,26 @@
-@import "foundation/settings";
+@import "mixins/includes";
 
 @media #{$xlarge-only} {
   html {
-    font-size:125%;
+    font-size: 125%;
   }
 }
 
 @media #{$xxlarge-up} {
   html {
-    font-size:150%;
+    font-size: 150%;
   }
 }
 
-fieldset input[type="button"] {
-  border-width: 1px;
+fieldset, table {
+  input[type="button"] {
+    border-width: 1px;
+    border-color: $mid-grey;
+    margin-bottom: 0;
+    border-radius: 0.3rem;
+  }
 }
 
 input[type="button"] {
-  background-color: $bright-green;
-  color: white;
-
-  &:hover, &:focus {
-    background-color: $dark-green;
-  }
-
+  @include green-button;
 }
