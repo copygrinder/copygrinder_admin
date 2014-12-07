@@ -4,7 +4,10 @@ goog.require('cgAdmin.homeModule');
 
 goog.provide('cgAdmin.TypeEditorController');
 
+goog.inherits(cgAdmin.TypeEditorController, cgAdmin.TypeControllerSupport);
+
 /**
+ * @extends {cgAdmin.TypeControllerSupport}
  * @constructor
  * @export
  * @ngInject
@@ -14,11 +17,8 @@ goog.provide('cgAdmin.TypeEditorController');
  * @return {cgAdmin.TypeEditorController}
  */
 cgAdmin.TypeEditorController = function(contentService, $scope, $stateParams, $location, $timeout) {
-  this.$scope = $scope;
-  this.$stateParams = $stateParams;
-  this.$location = $location;
-  this.contentService = contentService;
-  this.$timeout = $timeout;
+
+  cgAdmin.TypeControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout);
 
   this.fetchType();
 };
@@ -36,32 +36,10 @@ cgAdmin.TypeEditorController.prototype.fetchType = function() {
  */
 cgAdmin.TypeEditorController.prototype.saveType = function() {
   var _this = this;
-  this.contentService.saveType(this.$scope.type, function() {
+  this.contentService.editType(this.$scope.type, function() {
     _this.$location.path('/');
   });
 };
-
-/**
- * @expose
- */
-cgAdmin.TypeEditorController.prototype.addField = function() {
-  if (!this.$scope.type.fields) {
-    this.$scope.type.fields = [];
-  }
-  this.$scope.type.fields.push({});
-};
-
-/**
- * @expose
- */
-cgAdmin.TypeEditorController.prototype.deleteField = function(index) {
-  this.$scope.type.fields.splice(index, 1);
-};
-
-/**
- * @expose
- */
-cgAdmin.TypeEditorController.prototype.$scope.type.fields;
 
 /**
  * @ngInject

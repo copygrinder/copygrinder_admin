@@ -1,26 +1,33 @@
 <html>
 <head></head>
 <body>
-    <div class="home-page row">
-        <div class="small-12 columns">
-            {{siloName}}
-            <ul class="tiny-block-grid-1 small-block-grid-2 medium-block-grid-3 large-block-grid-4">
-                <li data-ng-repeat="typeObj in typeObjs">
-                    <div class="screenshot-container">
-                        <div class="edit-title-container">
-                            <a data-ng-href="/type/{{typeObj.id}}/edit">
-                                <span class="fi-page-edit" title="Edit Type"></span>
-                            </a>
+    <div class="home-page">
+        <div class="row">
+            <div class="small-12 columns">
+                {{siloName}}
+                <ul class="tiny-block-grid-1 small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+                    <li data-ng-repeat="typeObj in typeObjs">
+                        <div class="screenshot-container">
+                            <div class="edit-title-container">
+                                <a data-ng-href="/type/{{typeObj.id}}/edit">
+                                    <span class="fi-page-edit" title="Edit Type"></span>
+                                </a>
+                            </div>
+                            <div>
+                                <a data-ng-href="/type/{{typeObj.id}}">
+                                    <img src="/images/screenshot-placeholder.png" alt="screenshot">
+                                    {{typeObj.displayName}}
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <a data-ng-href="/type/{{typeObj.id}}">
-                                <img src="/images/screenshot-placeholder.png" alt="screenshot">
-                                {{typeObj.displayName}}
-                            </a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                <a class="button" data-ng-href="/type/new">New Type</a>
+            </div>
         </div>
     </div>
 </body>

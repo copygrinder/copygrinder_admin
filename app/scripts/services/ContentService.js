@@ -81,8 +81,12 @@ cgAdmin.ContentService = function($http, $resource) {
     CopybeanResource.save(bean, successFunc, defaultErrorHandler(errorFunc));
   };
 
-  this.saveType = function(type, successFunc, errorFunc) {
+  this.editType = function(type, successFunc, errorFunc) {
     CopybeanTypeResource.update({'id': type.id}, type, successFunc, defaultErrorHandler(errorFunc));
+  };
+
+  this.saveType = function(type, successFunc, errorFunc) {
+    CopybeanTypeResource.save(type, successFunc, defaultErrorHandler(errorFunc));
   };
 
 };
