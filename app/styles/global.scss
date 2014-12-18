@@ -24,3 +24,7 @@ fieldset, table {
 input[type="button"] {
   @include green-button;
 }
+
+input[type="button"].delete-button {
+  @include red-button;
+}

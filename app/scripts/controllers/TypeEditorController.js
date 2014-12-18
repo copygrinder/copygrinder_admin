@@ -20,6 +20,8 @@ cgAdmin.TypeEditorController = function(contentService, $scope, $stateParams, $l
 
   cgAdmin.TypeControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout);
 
+  $scope['showDeleteButton'] = true;
+
   this.fetchType();
 };
 
@@ -37,6 +39,16 @@ cgAdmin.TypeEditorController.prototype.fetchType = function() {
 cgAdmin.TypeEditorController.prototype.saveType = function() {
   var _this = this;
   this.contentService.editType(this.$scope.type, function() {
+    _this.$location.path('/');
+  });
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeEditorController.prototype.deleteType = function() {
+  var _this = this;
+  this.contentService.deleteType(this.$scope.type, function() {
     _this.$location.path('/');
   });
 };

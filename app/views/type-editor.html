@@ -54,7 +54,7 @@
                             </label>
                         </div>
                         <div class="medium-1 columns delete-col">
-                            <input type="button" value="X" data-ng-click="ctrl.deleteField($index)" />
+                            <input type="button" value="X" data-ng-click="ctrl.deleteField($index)"/>
                         </div>
                     </div>
                     <input type="button" value="Add Field" data-ng-click="ctrl.addField()">
@@ -91,7 +91,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="small-12 columns submit-container">
+            <div class="small-6 columns">
+                <input class="button delete-button" type="button" value="Delete" data-ng-show="showDeleteButton" data-ng-click="ctrl.deleteType()">
+            </div>
+            <div class="small-6 columns submit-container">
                 <input class="button right" type="submit" value="Save">
             </div>
         </div>

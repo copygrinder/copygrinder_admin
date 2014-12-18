@@ -89,6 +89,14 @@ cgAdmin.ContentService = function($http, $resource) {
     CopybeanTypeResource.save(type, successFunc, defaultErrorHandler(errorFunc));
   };
 
+  this.deleteBean = function(bean, successFunc, errorFunc) {
+    CopybeanResource.remove({'id': bean.id}, successFunc, defaultErrorHandler(errorFunc));
+  };
+
+  this.deleteType = function(type, successFunc, errorFunc) {
+    CopybeanTypeResource.remove({'id': type.id}, successFunc, defaultErrorHandler(errorFunc));
+  };
+
 };
 
 cgAdmin.homeModule.service('contentService', cgAdmin.ContentService);

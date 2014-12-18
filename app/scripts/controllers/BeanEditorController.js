@@ -20,6 +20,8 @@ cgAdmin.BeanEditorController = function(contentService, $scope, $stateParams, $l
 
   cgAdmin.BeanControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout);
 
+  $scope['showDeleteButton'] = true;
+
   this.fetchBean();
 };
 
@@ -57,6 +59,16 @@ cgAdmin.BeanEditorController.prototype.fetchBean = function() {
 cgAdmin.BeanEditorController.prototype.saveBean = function() {
   var _this = this;
   this.contentService.editBean(this.$scope.bean, function() {
+    _this.$location.path('/');
+  });
+};
+
+/**
+ * @expose
+ */
+cgAdmin.BeanEditorController.prototype.deleteBean = function() {
+  var _this = this;
+  this.contentService.deleteBean(this.$scope.bean, function() {
     _this.$location.path('/');
   });
 };
