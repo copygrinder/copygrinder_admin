@@ -28,3 +28,13 @@ input[type="button"] {
 input[type="button"].delete-button {
   @include red-button;
 }
+
+.submit-button-container {
+  float: right;
+  input {
+    float:left;
+  }
+  .delete-button {
+    margin-right: 1.125rem;
+  }
+}
