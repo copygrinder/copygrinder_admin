@@ -44,7 +44,10 @@ cgAdmin.ContentService = function($http, $resource) {
   }
 
   this.getTypesSummary = function(successFunc, errorFunc) {
-    CopybeanTypeResource.query({'fields': 'id,displayName,cardinality'}, successFunc, defaultErrorHandler(errorFunc));
+    CopybeanTypeResource.query({
+      'fields': 'id,displayName,cardinality',
+      'tags!': 'PREDEFINED'
+    }, successFunc, defaultErrorHandler(errorFunc));
   };
 
   this.getTypesByIds = function(ids, successFunc, errorFunc) {
