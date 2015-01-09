@@ -22,7 +22,10 @@ cgAdmin.TypeEditorController = function(contentService, $scope, $stateParams, $l
 
   $scope['showDeleteButton'] = true;
 
+  $scope['expandedFields'] = {};
+
   this.fetchType();
+  this.fetchValidators();
 };
 
 cgAdmin.TypeEditorController.prototype.fetchType = function() {
@@ -33,12 +36,25 @@ cgAdmin.TypeEditorController.prototype.fetchType = function() {
   });
 };
 
+cgAdmin.TypeEditorController.prototype.fetchValidators = function() {
+  var _this = this;
+  this.contentService.getAllValidators(function(validators) {
+    _this.$scope.validators = validators;
+  });
+};
+
 /**
  * @expose
  */
 cgAdmin.TypeEditorController.prototype.saveType = function() {
   var _this = this;
-  this.contentService.editType(this.$scope.type, function() {
+
+  var type = angular.copy(this.$scope.type);
+  angular.forEach(type.fields, function(field) {
+    delete field.expanded;
+  });
+
+  this.contentService.editType(type, function() {
     _this.$location.path('/');
   });
 };
@@ -52,6 +68,27 @@ cgAdmin.TypeEditorController.prototype.deleteType = function() {
     _this.$location.path('/');
   });
 };
+
+/**
+ * @expose
+ */
+cgAdmin.TypeEditorController.prototype.expandField = function(field) {
+  field.expanded = true;
+  setTimeout(function () {
+    document.getElementById('id-field-' + field.id).focus();
+  }, 50);
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeEditorController.prototype.collapseField = function(field) {
+  field.expanded = false;
+  setTimeout(function () {
+    document.getElementById('expand-' + field.id).focus();
+  }, 50);
+};
+
 
 /**
  * @ngInject

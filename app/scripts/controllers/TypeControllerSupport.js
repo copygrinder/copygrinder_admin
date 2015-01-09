@@ -39,3 +39,13 @@ cgAdmin.TypeControllerSupport.prototype.deleteField = function(index) {
  * @expose
  */
 cgAdmin.TypeControllerSupport.prototype.$scope.type.fields;
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.$scope.type.fields.expanded;
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.$scope.validators;

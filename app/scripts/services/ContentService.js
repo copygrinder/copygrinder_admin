@@ -17,10 +17,14 @@ cgAdmin.ContentService = function($http, $resource) {
   var root = 'http://127.0.0.1:19836/integrationtest';
 
   var CopybeanResource = $resource(root + '/copybeans/:id', null, {
-    'update': {method: 'PUT'}
+    'get': {method: 'GET', cache: true},
+    'update': {method: 'PUT'},
+    'query': {method: 'GET', cache: true, isArray: true}
   });
 
   var CopybeanTypeResource = $resource(root + '/copybeans/types/:id', null, {
+    'get': {method: 'GET', cache: true},
+    'query': {method: 'GET', cache: true, isArray: true},
     'update': {method: 'PUT'}
   });
 
@@ -98,6 +102,10 @@ cgAdmin.ContentService = function($http, $resource) {
 
   this.deleteType = function(type, successFunc, errorFunc) {
     CopybeanTypeResource.remove({'id': type.id}, successFunc, defaultErrorHandler(errorFunc));
+  };
+
+  this.getAllValidators = function(successFunc, errorFunc) {
+    CopybeanResource.query({'enforcedTypeIds': 'classBackedValidator'}, successFunc, defaultErrorHandler(errorFunc));
   };
 
 };
