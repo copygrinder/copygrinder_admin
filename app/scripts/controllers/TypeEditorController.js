@@ -25,7 +25,6 @@ cgAdmin.TypeEditorController = function(contentService, $scope, $stateParams, $l
   $scope['expandedFields'] = {};
 
   this.fetchType();
-  this.fetchType();
   this.fetchValidators();
 };
 
