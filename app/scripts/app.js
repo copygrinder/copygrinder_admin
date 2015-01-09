@@ -8,6 +8,7 @@ goog.require('cgAdmin.NotFoundException');
 
 
 cgAdmin.homeModule = angular.module('copygrinderHome', [
+  'angular-data.DSCacheFactory',
   'ngResource',
   'ui.router',
   'mm.foundation.accordion',

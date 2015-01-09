@@ -4,6 +4,8 @@ goog.require('cgAdmin.homeModule');
 
 goog.require('cgAdmin.CommunicationException');
 
+goog.require('cgAdmin.CacheService');
+
 goog.require('cgAdmin.NotFoundException');
 
 goog.provide('cgAdmin.ContentService');
@@ -59,7 +61,7 @@ cgAdmin.ContentService = function($http, $resource) {
   };
 
   this.getType = function(id, successFunc, errorFunc) {
-    CopybeanTypeResource.get({'id': id}, successFunc, defaultErrorHandler(errorFunc));
+    CopybeanTypeResource.get({'id': id}, successFunc);
   };
 
   this.getBeansByType = function(typeId, successFunc, errorFunc) {
