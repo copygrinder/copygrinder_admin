@@ -8,13 +8,11 @@
                 <ul class="tiny-block-grid-1 small-block-grid-2 medium-block-grid-3 large-block-grid-4">
                     <li data-ng-repeat="typeObj in typeObjs">
                         <div class="screenshot-container">
-                            <div class="edit-title-container">
-                                <a data-ng-href="/type/{{typeObj.id}}/edit">
-                                    <span class="fi-page-edit" title="Edit Type"></span>
-                                </a>
-                            </div>
+                            <a class="edit-title-container" data-ng-href="/type/{{typeObj.id}}/edit" title="Edit Type">
+                                <span class="fi-widget"></span>
+                            </a>
                             <div>
-                                <a data-ng-href="/type/{{typeObj.id}}">
+                                <a data-ng-href="/type/{{typeObj.id}}" title="Edit Beans">
                                     <img src="/images/screenshot-placeholder.png" alt="screenshot">
                                     {{typeObj.displayName}}
                                 </a>
