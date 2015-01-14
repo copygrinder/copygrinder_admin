@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <fieldset class="striped-rows">
+                <fieldset class="striped-rows field-group">
                     <div data-ng-repeat="field in type.fields">
                         <div class="stripe">
                             <div data-ng-show="!field.expanded" data-ng-click="ctrl.expandField(field)"
@@ -62,9 +62,33 @@
                                         </select>
                                     </label>
                                 </div>
+                                <div class="medium-12 columns" data-ng-show="field.validators.length > 0">
+                                    <h4>Validators</h4>
+                                    <hr class="first-hr">
+                                </div>
+                                <div class="medium-12 columns validator-col text-right"
+                                     data-ng-repeat="validator in field.validators">
+                                    <span class="left">{{validatorMap[validator.type].content.displayName}}</span>
+                                    <span>
+                                        <a class="delete-button button tiny round" href="#" data-ng-click="ctrl.removeValidator(validator, field)">Remove Validator</a>
+                                    </span>
+                                    <hr>
+                                </div>
                                 <div class="medium-12 columns">
-                                    <input class="delete-button" type="button" value="Delete Field"
-                                           data-ng-click="ctrl.deleteField($index)"/>
+                                    <a class="delete-button button round tiny" data-ng-click="ctrl.deleteField($index)"
+                                       href="#">
+                                        Delete Field
+                                    </a>
+                                    <a class="button round tiny" href="#" data-dropdown-toggle="#addval-{{$index}}" data-ng-disabled="field.noValidators" data-ng-attr-title="{{field.noValidators && 'No validators available' || ''}}">
+                                        Add Validator
+                                    </a>
+                                    <ul id="addval-{{$index}}" class="f-dropdown" tabindex="-1">
+                                        <li data-ng-repeat="validator in ctrl.getAvailableValidators(validatorMap, field)">
+                                            <a data-ng-click="ctrl.addValidator(validator, field)">
+                                                {{validator.content.displayName}}
+                                            </a>
+                                        </li>
+                                    </ul>
                                     <a class="right" href="#" data-ng-click="ctrl.collapseField(field)">Collapse</a>
                                 </div>
                             </div>
@@ -74,7 +98,7 @@
                         <div class="stripe">
                             <div class="row">
                                 <div class="tiny-12 columns">
-                                    <input type="button" value="Add Field" data-ng-click="ctrl.addField()">
+                                    <a class="button small round" data-ng-click="ctrl.addField()">Add Field</a>
                                 </div>
                             </div>
                         </div>

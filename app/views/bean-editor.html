@@ -26,7 +26,7 @@
                                 <input type="text" data-ng-model="bean.content[field.id]" id="value-field-{{field.id}}">
                             </td>
                             <td class="delete-cell">
-                                <input type="button" value="X" data-ng-click="ctrl.deleteRow($index)">
+                                <a href="#" class="button tiny round delete-button" data-ng-click="ctrl.deleteRow($index)">X</a>
                             </td>
                         </tr>
                         </tbody>
@@ -36,7 +36,7 @@
                             <td>There are no fields to display.</td>
                         </tr>
                     </table>
-                    <input class="button" type="button" value="Add Field" data-ng-click="ctrl.addRow()">
+                    <a data-ng-click="ctrl.addRow()" class="button small round">Add Field</a>
                 </fieldset>
             </div>
         </div>

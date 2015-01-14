@@ -21,12 +21,20 @@ fieldset, table {
   }
 }
 
-input[type="button"] {
-  @include green-button;
+.delete-button {
+  @include red-button;
 }
 
-input[type="button"].delete-button {
-  @include red-button;
+.button.round {
+  border-radius: 0.3rem;
+
+  &.tiny {
+    border-radius: 1rem;
+  }
+}
+
+fieldset .button {
+  margin-bottom: 0;
 }
 
 .submit-button-container {
@@ -46,10 +54,19 @@ form .striped-rows {
   .row {
     margin-left: 0;
     margin-right: 0;
-    padding: 1rem 0.5rem 1rem 0.5rem;
+    padding: 1.5rem 0.5rem 1.5rem 0.5rem;
   }
 }
 
 .striped-rows > div:nth-of-type(odd) > .stripe {
   background-color: $light-grey;
+}
+
+.button[disabled] {
+  background-color: $dark-grey;
+  color: $light-grey;
+  &:hover, &:focus {
+    background-color: $dark-grey;
+    color: $light-grey;
+  }
 }

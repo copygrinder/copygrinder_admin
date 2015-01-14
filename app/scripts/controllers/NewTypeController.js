@@ -28,7 +28,12 @@ cgAdmin.NewTypeController = function(contentService, $scope, $stateParams, $loca
  */
 cgAdmin.NewTypeController.prototype.saveType = function() {
   var _this = this;
-  this.contentService.saveType(this.$scope.type, function() {
+  var type = angular.copy(this.$scope.type);
+  angular.forEach(type.fields, function(field) {
+    delete field.expanded;
+    delete field.noValidators;
+  });
+  this.contentService.saveType(type, function() {
     _this.$location.path('/');
   });
 };

@@ -16,6 +16,21 @@ cgAdmin.TypeControllerSupport = function(contentService, $scope, $stateParams, $
   this.$location = $location;
   this.contentService = contentService;
   this.$timeout = $timeout;
+
+  this.fetchValidators();
+};
+
+cgAdmin.TypeControllerSupport.prototype.fetchValidators = function() {
+  var _this = this;
+  this.contentService.getAllValidators(function(validators) {
+    var validatorMap = {};
+    angular.forEach(validators, function(validator) {
+      var namespacedValId = validator.id;
+      var valId = namespacedValId.replace('validator.', '');
+      validatorMap[valId] = validator;
+    });
+    _this.$scope.validatorMap = validatorMap;
+  });
 };
 
 /**
@@ -25,7 +40,7 @@ cgAdmin.TypeControllerSupport.prototype.addField = function() {
   if (!this.$scope.type.fields) {
     this.$scope.type.fields = [];
   }
-  this.$scope.type.fields.push({});
+  this.$scope.type.fields.push({'expanded': true});
 };
 
 /**
@@ -34,6 +49,69 @@ cgAdmin.TypeControllerSupport.prototype.addField = function() {
 cgAdmin.TypeControllerSupport.prototype.deleteField = function(index) {
   this.$scope.type.fields.splice(index, 1);
 };
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.expandField = function(field) {
+  field.expanded = true;
+  setTimeout(function() {
+    document.getElementById('id-field-' + field.id).focus();
+  }, 50);
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.collapseField = function(field) {
+  field.expanded = false;
+  setTimeout(function() {
+    document.getElementById('expand-' + field.id).focus();
+  }, 50);
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.addValidator = function(validator, field) {
+  var namespacedValId = validator.id;
+  var valId = namespacedValId.replace('validator.', '');
+
+  if (!field.validators) {
+    field.validators = [];
+  }
+
+  field.validators.push({'type': valId});
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.removeValidator = function(validator, field) {
+  var index = field.validators.indexOf(validator);
+  field.validators.splice(index, 1);
+};
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.getAvailableValidators = function(validatorMap, field) {
+  var output = [];
+  angular.forEach(validatorMap, function(validator) {
+    var found = false;
+    angular.forEach(field.validators, function(fieldValidator) {
+      if ('validator.' + fieldValidator.type === validator.id) {
+        found = true;
+      }
+    });
+    if (!found) {
+      output.push(validator);
+    }
+  });
+  field.noValidators = output.length === 0;
+  return output;
+};
+
 
 /**
  * @expose
@@ -48,4 +126,19 @@ cgAdmin.TypeControllerSupport.prototype.$scope.type.fields.expanded;
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.$scope.validators;
+cgAdmin.TypeControllerSupport.prototype.$scope.type.fields.noValidators;
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.$scope.type.validators;
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.$scope.type.validators.args;
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.$scope.validatorMap;

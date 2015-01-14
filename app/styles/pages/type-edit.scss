@@ -6,4 +6,17 @@
     cursor: pointer;
   }
 
+  .field-group {
+    .first-hr {
+      margin-top: 0;
+    }
+    hr {
+      margin-top: 1.1875rem;
+    }
+  }
+
+  .validator-col {
+    margin-bottom: 1.125rem;
+  }
+
 }

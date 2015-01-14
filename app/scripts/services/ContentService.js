@@ -107,7 +107,7 @@ cgAdmin.ContentService = function($http, $resource) {
   };
 
   this.getAllValidators = function(successFunc, errorFunc) {
-    CopybeanResource.query({'enforcedTypeIds': 'classBackedValidator'}, successFunc, defaultErrorHandler(errorFunc));
+    CopybeanResource.query({'enforcedTypeIds': 'classBackedFieldValidator'}, successFunc, defaultErrorHandler(errorFunc));
   };
 
 };
