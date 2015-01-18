@@ -45,9 +45,11 @@ cgAdmin.BeanControllerSupport.prototype.watchLabelFields = function(bean, $scope
 
 cgAdmin.BeanControllerSupport.prototype.fetchRefs = function(types) {
   var refFieldsNested = types.map(function(type) {
-    return type.fields.filter(function(field) {
-      return field.type === 'Reference';
-    });
+    if (type.fields) {
+      return type.fields.filter(function(field) {
+        return field.type === 'Reference';
+      });
+    }
   });
   var refFields = this.flatten(refFieldsNested);
   if (refFields) {
@@ -91,7 +93,17 @@ cgAdmin.BeanControllerSupport.prototype.removeDuplicates = function(arr) {
 
 cgAdmin.BeanControllerSupport.prototype.flatten = function(arr) {
   var merged = [];
-  return merged.concat.apply(merged, arr);
+  merged = merged.concat.apply(merged, arr);
+  if (merged) {
+    merged = merged.filter(function(field) {
+      if (field !== undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+  return merged;
 };
 
 /**

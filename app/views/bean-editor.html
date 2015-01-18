@@ -9,7 +9,7 @@
                         <td data-ng-switch data-on="field.type">
                             <input data-ng-switch-when="Integer" type="number" data-ng-model="bean.content[field.id]">
                             <select data-ng-switch-when="Reference" data-ng-model="bean.content[field.id]">
-                                <option value="">Please select</option>
+                                <option value="">None</option>
                                 <option data-ng-repeat="refBean in refBeans[field.attributes.refs[0].refDisplayType]"
                                         value="!REF!:{{refBean.id}}"
                                         label="{{refBean.names[field.attributes.refs[0].refDisplayType]}}"
