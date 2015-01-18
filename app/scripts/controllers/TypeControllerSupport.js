@@ -18,6 +18,7 @@ cgAdmin.TypeControllerSupport = function(contentService, $scope, $stateParams, $
   this.$timeout = $timeout;
 
   this.fetchValidators();
+  this.fetchRefTypes();
 };
 
 cgAdmin.TypeControllerSupport.prototype.fetchValidators = function() {
@@ -30,6 +31,13 @@ cgAdmin.TypeControllerSupport.prototype.fetchValidators = function() {
       validatorMap[valId] = validator;
     });
     _this.$scope.validatorMap = validatorMap;
+  });
+};
+
+cgAdmin.TypeControllerSupport.prototype.fetchRefTypes = function() {
+  var _this = this;
+  this.contentService.getReferenceTypes(function(refTypes) {
+    _this.$scope.refTypes = refTypes;
   });
 };
 
@@ -112,6 +120,22 @@ cgAdmin.TypeControllerSupport.prototype.getAvailableValidators = function(valida
   return output;
 };
 
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.fieldTypeChange = function(field) {
+  if (field.type === 'Reference') {
+    if (!field.attributes) {
+      field.attributes = {};
+    }
+
+    if (!field.attributes['refs']) {
+      field.attributes['refs'] = [
+        {'refValidationTypes': [], 'refDisplayType': ''}
+      ];
+    }
+  }
+};
 
 /**
  * @expose
@@ -142,3 +166,8 @@ cgAdmin.TypeControllerSupport.prototype.$scope.type.validators.args;
  * @expose
  */
 cgAdmin.TypeControllerSupport.prototype.$scope.validatorMap;
+
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.$scope.refTypes;

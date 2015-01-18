@@ -29,6 +29,7 @@ cgAdmin.NewBeanController.prototype.fetchType = function(typeId) {
   var _this = this;
   this.contentService.getType(typeId, function(beanType) {
     _this.$scope.types = [beanType];
+    _this.fetchRefs([beanType]);
     if (!beanType['fields'] || beanType['fields'].length < 1) {
       _this.$scope['hasFields'] = false;
     }

@@ -36,12 +36,15 @@
                             <div data-ng-show="!field.expanded" data-ng-click="ctrl.expandField(field)"
                                  class="row field-summary">
                                 <div class="tiny-12 columns">
-                                    <span>{{field.displayName}} ({{field.type}})</span>
+                                    <span><span class="field-title">{{field.displayName}}</span> ({{field.type}})</span>
                                     <a class="right" href="#" data-ng-click="ctrl.expandField(field)"
                                        id="expand-{{field.id}}">Expand</a>
                                 </div>
                             </div>
                             <div data-ng-show="field.expanded" class="row">
+                                <div class="medium-12 columns spacer">
+                                    <span class="field-title">{{field.displayName}}</span>
+                                </div>
                                 <div class="medium-4 columns">
                                     <label>Field ID
                                         <input type="text" id="id-field-{{field.id}}" data-ng-model="field.id"
@@ -55,22 +58,57 @@
                                 </div>
                                 <div class="medium-4 columns">
                                     <label>Field Type
-                                        <select data-ng-model="field.type" required>
+                                        <select data-ng-model="field.type" required
+                                                data-ng-change="ctrl.fieldTypeChange(field)">
                                             <option value="">Please select</option>
                                             <option label="String" value="String"></option>
                                             <option label="Integer" value="Integer"></option>
+                                            <option label="Reference" value="Reference"></option>
                                         </select>
                                     </label>
                                 </div>
+                                <div data-ng-show="field.type == 'Reference'">
+                                    <div data-ng-repeat="ref in field.attributes.refs">
+                                        <div class="medium-6 columns">
+                                            <label>Reference Validation Type
+                                                <select data-ng-model="ref.refValidationTypes[0]"
+                                                        data-ng-change="ref.refDisplayType = ref.refValidationTypes[0]"
+                                                        required>
+                                                    <option value="">Please select</option>
+                                                    <option data-ng-repeat="refType in refTypes"
+                                                            label="{{refType.displayName}}"
+                                                            value="{{refType.id}}"
+                                                            data-ng-selected="refType.id == ref.refValidationTypes[0]">
+                                                    </option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <div class="medium-6 columns">
+                                            <label>Reference Display Type
+                                                <select data-ng-model="ref.refDisplayType">
+                                                    <option value="">Please select</option>
+                                                    <option data-ng-repeat="refType in refTypes"
+                                                            label="{{refType.displayName}}"
+                                                            value="{{refType.id}}"
+                                                            data-ng-selected="refType.id == ref.refDisplayType"
+                                                            data-ng-show="ref.refValidationTypes.indexOf(refType.id) != -1">
+                                                    </option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div class="medium-12 columns" data-ng-show="field.validators.length > 0">
-                                    <h4>Validators</h4>
+                                    <span class="field-subtitle">Validators</span>
                                     <hr class="first-hr">
                                 </div>
                                 <div class="medium-12 columns validator-col text-right"
                                      data-ng-repeat="validator in field.validators">
                                     <span class="left">{{validatorMap[validator.type].content.displayName}}</span>
                                     <span>
-                                        <a class="delete-button button tiny round" href="#" data-ng-click="ctrl.removeValidator(validator, field)">Remove Validator</a>
+                                        <a class="delete-button button tiny round" href="#"
+                                           data-ng-click="ctrl.removeValidator(validator, field)">Remove Validator</a>
                                     </span>
                                     <hr>
                                 </div>
@@ -79,7 +117,9 @@
                                        href="#">
                                         Delete Field
                                     </a>
-                                    <a class="button round tiny" href="#" data-dropdown-toggle="#addval-{{$index}}" data-ng-disabled="field.noValidators" data-ng-attr-title="{{field.noValidators && 'No validators available' || ''}}">
+                                    <a class="button round tiny" href="#" data-dropdown-toggle="#addval-{{$index}}"
+                                       data-ng-disabled="field.noValidators"
+                                       data-ng-attr-title="{{field.noValidators && 'No validators available' || ''}}">
                                         Add Validator
                                     </a>
                                     <ul id="addval-{{$index}}" class="f-dropdown" tabindex="-1">

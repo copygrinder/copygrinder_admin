@@ -43,6 +43,57 @@ cgAdmin.BeanControllerSupport.prototype.watchLabelFields = function(bean, $scope
   }, true);
 };
 
+cgAdmin.BeanControllerSupport.prototype.fetchRefs = function(types) {
+  var refFieldsNested = types.map(function(type) {
+    return type.fields.filter(function(field) {
+      return field.type === 'Reference';
+    });
+  });
+  var refFields = this.flatten(refFieldsNested);
+  if (refFields) {
+    var displayTypes = refFields.map(function(refField) {
+      if (refField.attributes) {
+        return refField.attributes['refs'].map(function(ref) {
+          return ref['refDisplayType'];
+        });
+      }
+    });
+
+    displayTypes = this.flatten(displayTypes);
+    displayTypes = this.removeDuplicates(displayTypes);
+
+    var _this = this;
+    this.contentService.getBeansByTypes(displayTypes, function(beans) {
+      if (!_this.$scope.refBeans) {
+        _this.$scope.refBeans = {};
+      }
+      angular.forEach(beans, function(bean) {
+        angular.forEach(bean['enforcedTypeIds'], function(typeId) {
+          if (!_this.$scope.refBeans[typeId]) {
+            _this.$scope.refBeans[typeId] = [];
+          }
+          _this.$scope.refBeans[typeId].push(bean);
+        });
+      });
+    });
+  }
+};
+
+
+cgAdmin.BeanControllerSupport.prototype.removeDuplicates = function(arr) {
+  return arr.reduce(function(p, c) {
+    if (p.indexOf(c) < 0) {
+      p.push(c);
+    }
+    return p;
+  }, []);
+};
+
+cgAdmin.BeanControllerSupport.prototype.flatten = function(arr) {
+  var merged = [];
+  return merged.concat.apply(merged, arr);
+};
+
 /**
  * @expose
  */
@@ -102,3 +153,8 @@ cgAdmin.BeanControllerSupport.prototype.$scope.untypedFields;
  * @expose
  */
 cgAdmin.BeanControllerSupport.prototype.$scope.calcType;
+
+/**
+ * @expose
+ */
+cgAdmin.BeanControllerSupport.prototype.$scope.refBeans;

@@ -68,6 +68,10 @@ cgAdmin.ContentService = function($http, $resource) {
     CopybeanResource.query({'enforcedTypeIds': typeId}, successFunc, defaultErrorHandler(errorFunc));
   };
 
+  this.getBeansByTypes = function(typeIds, successFunc, errorFunc) {
+    CopybeanResource.query({'enforcedTypeIds~': typeIds}, successFunc, defaultErrorHandler(errorFunc));
+  };
+
   this.getMetaBean = function(successFunc, errorFunc) {
     CopybeanResource.query({
       'enforcedTypeIds': 'copygrinderAdminMetatype',
@@ -108,6 +112,13 @@ cgAdmin.ContentService = function($http, $resource) {
 
   this.getAllValidators = function(successFunc, errorFunc) {
     CopybeanResource.query({'enforcedTypeIds': 'classBackedFieldValidator'}, successFunc, defaultErrorHandler(errorFunc));
+  };
+
+  this.getReferenceTypes = function(successFunc, errorFunc) {
+    CopybeanTypeResource.query({
+      'fields': 'id,displayName',
+      'tags!': 'PREDEFINED'
+    }, successFunc, defaultErrorHandler(errorFunc));
   };
 
 };
