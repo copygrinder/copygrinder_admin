@@ -4,8 +4,11 @@ goog.require('cgAdmin.homeModule');
 
 goog.provide('cgAdmin.TypeController');
 
+goog.inherits(cgAdmin.TypeController, cgAdmin.NavController);
+
 /**
  * @constructor
+ * @extends {cgAdmin.NavController}
  * @export
  * @ngInject
  * @param {!cgAdmin.ContentService} contentService
@@ -19,6 +22,8 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
   this.$stateParams = $stateParams;
   this.contentService = contentService;
   var typeId = $stateParams['typeId'];
+
+  cgAdmin.NavController.call(this, contentService, $scope);
 
   function promise(deferredFunc) {
     var deferred = $q.defer();

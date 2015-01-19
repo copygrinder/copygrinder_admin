@@ -2,8 +2,11 @@
 
 goog.provide('cgAdmin.BeanControllerSupport');
 
+goog.inherits(cgAdmin.BeanControllerSupport, cgAdmin.NavController);
+
 /**
  * @constructor
+ * @extends {cgAdmin.NavController}
  * @export
  * @param {!cgAdmin.ContentService} contentService
  * @param {!angular.Scope} $scope
@@ -16,6 +19,8 @@ cgAdmin.BeanControllerSupport = function(contentService, $scope, $stateParams, $
   this.$location = $location;
   this.contentService = contentService;
   this.$timeout = $timeout;
+
+  cgAdmin.NavController.call(this, contentService, $scope);
 
   $scope['hasFields'] = true;
 };

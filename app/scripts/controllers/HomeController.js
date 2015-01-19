@@ -4,8 +4,11 @@ goog.require('cgAdmin.homeModule');
 
 goog.provide('cgAdmin.HomeController');
 
+goog.inherits(cgAdmin.HomeController, cgAdmin.NavController);
+
 /**
  * @constructor
+ * @extends {cgAdmin.NavController}
  * @export
  * @ngInject
  * @param {!cgAdmin.ContentService} contentService
@@ -15,9 +18,8 @@ goog.provide('cgAdmin.HomeController');
 cgAdmin.HomeController = function (contentService, $scope) {
   this.$scope = $scope;
 
-  contentService.getMetaBean(function (beans) {
-    $scope.siloName = beans[0].content.siloName;
-  });
+  cgAdmin.NavController.call(this, contentService, $scope);
+
   contentService.getTypesSummary(function (typeData) {
     $scope.typeObjs = typeData;
   });
