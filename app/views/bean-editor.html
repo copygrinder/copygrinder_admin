@@ -16,6 +16,19 @@
                                         label="{{refBean.names[field.attributes.refs[0].refDisplayType]}}"
                                         data-ng-selected="bean.content[field.id] == '!REF!:' + refBean.id"></option>
                             </select>
+
+                            <div data-ng-switch-when="File">
+                                <a data-ng-show="bean.content[field.id].filename"
+                                   data-ng-href="{{$root.rootUrl}}/copybeans/{{bean.id}}/{{field.id}}">
+                                    {{bean.content[field.id].filename}}
+                                </a>
+                                <button class="button tiny round" data-ng-file-select data-ng-model="files">Upload
+                                </button>
+                            </div>
+                            <a data-ng-show="bean.content[field.id].filename" data-ng-switch-when="Image"
+                               data-ng-href="{{$root.rootUrl}}/copybeans/{{bean.id}}/{{field.id}}">
+                                {{bean.content[field.id].filename}}
+                            </a>
                             <input data-ng-switch-default type="text" data-ng-model="bean.content[field.id]">
                         </td>
                     </tr>
@@ -46,7 +59,7 @@
                             <td>There are no fields to display.</td>
                         </tr>
                     </table>
-                    <a data-ng-click="ctrl.addRow()" class="button small round">Add Field</a>
+                    <a href="#" data-ng-click="ctrl.addRow()" class="button small round">Add Field</a>
                 </fieldset>
             </div>
         </div>

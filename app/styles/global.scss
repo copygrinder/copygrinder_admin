@@ -12,12 +12,9 @@
   }
 }
 
-fieldset, table {
-  input[type="button"] {
-    border-width: 1px;
-    border-color: $mid-grey;
+table {
+  select {
     margin-bottom: 0;
-    border-radius: 0.3rem;
   }
 }
 
@@ -33,14 +30,16 @@ fieldset, table {
   }
 }
 
-fieldset .button {
-  margin-bottom: 0;
+fieldset, table {
+  .button {
+    margin-bottom: 0;
+  }
 }
 
 .submit-button-container {
   float: right;
   input {
-    float:left;
+    float: left;
   }
   .delete-button {
     margin-right: 1.125rem;
@@ -62,7 +61,7 @@ form .striped-rows {
   background-color: $light-grey;
 }
 
-.button[disabled] {
+a[disabled].button {
   background-color: $dark-grey;
   color: $light-grey;
   &:hover, &:focus {

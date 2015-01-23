@@ -14,9 +14,9 @@ goog.provide('cgAdmin.ContentService');
  * @constructor
  * @ngInject
  */
-cgAdmin.ContentService = function($http, $resource) {
+cgAdmin.ContentService = function($http, $resource, $rootScope) {
 
-  var root = 'http://127.0.0.1:19836/integrationtest';
+  var root = $rootScope.rootUrl;
 
   var CopybeanResource = $resource(root + '/copybeans/:id', null, {
     'get': {method: 'GET', cache: true},
