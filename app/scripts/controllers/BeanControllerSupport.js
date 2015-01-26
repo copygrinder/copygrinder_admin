@@ -13,14 +13,18 @@ goog.inherits(cgAdmin.BeanControllerSupport, cgAdmin.NavController);
  * @param {!angular.$location} $location
  * @return {cgAdmin.BeanControllerSupport}
  */
-cgAdmin.BeanControllerSupport = function(contentService, $scope, $stateParams, $location, $timeout) {
+cgAdmin.BeanControllerSupport = function(contentService, $scope, $stateParams, $location, $timeout, $upload, $rootScope) {
   this.$scope = $scope;
   this.$stateParams = $stateParams;
   this.$location = $location;
   this.contentService = contentService;
   this.$timeout = $timeout;
+  this.$upload = $upload;
+  this.$rootScope = $rootScope;
 
   cgAdmin.NavController.call(this, contentService, $scope);
+
+  $scope.dirtyFields = {};
 
   $scope['hasFields'] = true;
 };
@@ -144,6 +148,28 @@ cgAdmin.BeanControllerSupport.prototype.addRow = function() {
 /**
  * @expose
  */
+cgAdmin.BeanControllerSupport.prototype.fileSelected = function(file, bean, fieldId) {
+
+  var _this = this;
+
+  this.$upload.upload({
+    url: _this.$rootScope.rootUrl + '/files',
+    method: 'POST',
+    file: file
+  }).progress(function(evt) {
+    //console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total, 10) + '% file :' + evt.config.file.name);
+  }).success(function(data, status, headers, config) {
+    var filename = config.file[0].name;
+    var hash = data[0].content.hash;
+    bean.content[fieldId] = {'filename': filename, 'hash': hash};
+    _this.$scope.dirtyFields[fieldId] = true;
+  });
+
+};
+
+/**
+ * @expose
+ */
 cgAdmin.BeanControllerSupport.prototype.$scope.bean;
 
 /**
@@ -175,3 +201,13 @@ cgAdmin.BeanControllerSupport.prototype.$scope.calcType;
  * @expose
  */
 cgAdmin.BeanControllerSupport.prototype.$scope.refBeans;
+
+/**
+ * @expose
+ */
+cgAdmin.BeanControllerSupport.prototype.$upload.upload.progress;
+
+/**
+ * @expose
+ */
+cgAdmin.BeanControllerSupport.prototype.$scope.dirtyFields;

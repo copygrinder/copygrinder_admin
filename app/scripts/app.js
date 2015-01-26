@@ -40,4 +40,9 @@ cgAdmin.homeModule.run(cgAdmin.homeModule.go);
 /**
  * @expose
  */
-cgAdmin.homeModule.prototype.$rootScope.rootUrl;
+cgAdmin.homeModule.$rootScope;
+
+/**
+ * @expose
+ */
+cgAdmin.homeModule.$rootScope.rootUrl;

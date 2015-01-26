@@ -16,9 +16,9 @@ goog.inherits(cgAdmin.BeanEditorController, cgAdmin.BeanControllerSupport);
  * @param {!angular.$location} $location
  * @return {cgAdmin.BeanEditorController}
  */
-cgAdmin.BeanEditorController = function(contentService, $scope, $stateParams, $location, $timeout) {
+cgAdmin.BeanEditorController = function(contentService, $scope, $stateParams, $location, $timeout, $upload, $rootScope) {
 
-  cgAdmin.BeanControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout);
+  cgAdmin.BeanControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout, $upload, $rootScope);
 
   $scope['showDeleteButton'] = true;
 
