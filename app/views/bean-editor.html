@@ -18,19 +18,21 @@
                             </select>
 
                             <div data-ng-switch-when="File">
-                                <a data-ng-show="bean.content[field.id].filename"
-                                   data-ng-href="{{$root.rootUrl}}/copybeans/{{bean.id}}/{{field.id}}">
+                                <a data-ng-show="bean.content[field.id].url"
+                                   data-ng-href="{{$root.rootUrl}}/{{bean.content[field.id].url}}">
                                     {{bean.content[field.id].filename}}
                                 </a>
+                                <span data-ng-show="!bean.content[field.id].url">{{bean.content[field.id].filename}}</span>
                                 <input type="button" class="button tiny round"
                                        data-ng-file-change="ctrl.fileSelected($files, bean, field.id)"
                                        data-ng-file-select value="Upload">
                             </div>
                             <div data-ng-switch-when="Image">
-                                <a data-ng-show="!dirtyFields[field.id] && bean.content[field.id].filename" data-ng-href="{{$root.rootUrl}}/copybeans/{{bean.id}}/{{field.id}}">
+                                <a data-ng-show="bean.content[field.id].url"
+                                   data-ng-href="{{$root.rootUrl}}/{{bean.content[field.id].url}}">
                                     {{bean.content[field.id].filename}}
                                 </a>
-                                <span data-ng-show="dirtyFields[field.id]">{{bean.content[field.id].filename}}</span>
+                                <span data-ng-show="!bean.content[field.id].url">{{bean.content[field.id].filename}}</span>
                                 <input type="button" class="button tiny round"
                                        data-ng-file-change="ctrl.fileSelected($files, bean, field.id)"
                                        data-ng-file-select data-accept="image/*" value="Upload">

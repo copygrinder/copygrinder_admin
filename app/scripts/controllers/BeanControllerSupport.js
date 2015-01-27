@@ -24,8 +24,6 @@ cgAdmin.BeanControllerSupport = function(contentService, $scope, $stateParams, $
 
   cgAdmin.NavController.call(this, contentService, $scope);
 
-  $scope.dirtyFields = {};
-
   $scope['hasFields'] = true;
 };
 
@@ -162,7 +160,6 @@ cgAdmin.BeanControllerSupport.prototype.fileSelected = function(file, bean, fiel
     var filename = config.file[0].name;
     var hash = data[0].content.hash;
     bean.content[fieldId] = {'filename': filename, 'hash': hash};
-    _this.$scope.dirtyFields[fieldId] = true;
   });
 
 };
@@ -206,8 +203,3 @@ cgAdmin.BeanControllerSupport.prototype.$scope.refBeans;
  * @expose
  */
 cgAdmin.BeanControllerSupport.prototype.$upload.upload.progress;
-
-/**
- * @expose
- */
-cgAdmin.BeanControllerSupport.prototype.$scope.dirtyFields;
