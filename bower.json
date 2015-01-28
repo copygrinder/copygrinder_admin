@@ -13,7 +13,9 @@
     "angular-ui-router": "0.2.13",
     "angular-cache": "3.2.4",
     "foundation-icon-fonts": "zurb/foundation-icon-fonts",
-    "ng-file-upload": "2.1.1"
+    "ng-file-upload": "2.1.1",
+    "ng-ckeditor": "0.2.1",
+    "ckeditor": "#full/4.4.7"
   },
   "devDependencies": {
     "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip",

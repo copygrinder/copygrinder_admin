@@ -37,6 +37,9 @@
                                        data-ng-file-change="ctrl.fileSelected($files, bean, field.id)"
                                        data-ng-file-select data-accept="image/*" value="Upload">
                             </div>
+                            <div data-ng-switch-when="Html">
+                                <textarea data-ckeditor="editorOptions" data-ng-model="bean.content[field.id]"></textarea>
+                            </div>
                             <input data-ng-switch-default type="text" data-ng-model="bean.content[field.id]">
                         </td>
                     </tr>
