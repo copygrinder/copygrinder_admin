@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   require('time-grunt')(grunt);
 
@@ -75,42 +75,42 @@ module.exports = function (grunt) {
       options: {
         port: 9000,
         hostname: '0.0.0.0',
-        livereload: 35729
+        livereload: 35729,
+        middleware: function(connect, options) {
+          var middlewares = [];
+          if (!Array.isArray(options.base)) {
+            options.base = [options.base];
+          }
+          var directory = options.directory || options.base[options.base.length - 1];
+          options.base.forEach(function(base) {
+            // Serve static files.
+            middlewares.push(connect.static(base));
+          });
+          // Make directory browse-able.
+          middlewares.push(connect.directory(directory));
+
+          // ***
+          // Not found - just serve index.html
+          // ***
+          middlewares.push(function(req, res) {
+            for (var file, i = 0; i < options.base.length; i++) {
+              file = options.base + '/index.html';
+              if (grunt.file.exists(file)) {
+                require('fs').createReadStream(file).pipe(res);
+                return;
+              }
+            }
+            res.statusCode(404); // where's index.html?
+            res.end();
+          });
+          return middlewares;
+        }
       },
       livereload: {
         options: {
           base: [
             '<%= yeoman.mainTmp %>'
-          ],
-          middleware: function(connect, options) {
-            var middlewares = [];
-            if (!Array.isArray(options.base)) {
-              options.base = [options.base];
-            }
-            var directory = options.directory || options.base[options.base.length - 1];
-            options.base.forEach(function(base) {
-              // Serve static files.
-              middlewares.push(connect.static(base));
-            });
-            // Make directory browse-able.
-            middlewares.push(connect.directory(directory));
-
-            // ***
-            // Not found - just serve index.html
-            // ***
-            middlewares.push(function(req, res){
-              for(var file, i = 0; i < options.base.length; i++){
-                file = options.base + '/index.html';
-                if (grunt.file.exists(file)){
-                  require('fs').createReadStream(file).pipe(res);
-                  return;
-                }
-              }
-              res.statusCode(404); // where's index.html?
-              res.end();
-            });
-            return middlewares;
-          }
+          ]
         }
       },
       test: {
@@ -303,7 +303,9 @@ module.exports = function (grunt) {
               '.htaccess',
               '*.html',
               'images/**/*.{webp}',
-              'fonts/*'
+              'fonts/*',
+              'components/foundation-icon-fonts/**/*.ttf',
+              'components/foundation-icon-fonts/**/*.woff'
             ]
           },
           {
@@ -371,7 +373,7 @@ module.exports = function (grunt) {
     less: {
       development: {
         options: {
-          paths: [ '<%= yeoman.app %>/<%= yeoman.bowerComponents %>' ],
+          paths: ['<%= yeoman.app %>/<%= yeoman.bowerComponents %>'],
           sourceMap: true,
           sourceMapBasepath: 'app/styles',
           sourceMapURL: 'less.css.map'
@@ -406,7 +408,7 @@ module.exports = function (grunt) {
         src: 'views/**/**.html',
         dest: '<%= yeoman.mainTmp %>/scripts/templates.js',
         options: {
-          htmlmin: { collapseWhitespace: true, collapseBooleanAttributes: true },
+          htmlmin: {collapseWhitespace: true, collapseBooleanAttributes: true},
           module: 'copygrinderHome'
         }
       }
@@ -550,6 +552,16 @@ module.exports = function (grunt) {
             to: '../scripts'
           }
         ]
+      },
+      fixCssPaths: {
+        src: ['.tmp/concat/styles/main.css'],
+        overwrite: true,
+        replacements: [
+          {
+            from: /url\(\"\.\.\/\.\.\/images\//g,
+            to: 'url("../images/'
+          }
+        ]
       }
     },
 
@@ -583,7 +595,7 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', function (target) {
+  grunt.registerTask('serve', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['prepare', 'build', 'connect:dist:keepalive']);
     }
@@ -595,7 +607,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function () {
+  grunt.registerTask('server', function() {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
@@ -626,6 +638,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'imagemin',
     'concat',
+    'replace:fixCssPaths',
     'copy:dist',
     'cssmin',
     'uglify',
