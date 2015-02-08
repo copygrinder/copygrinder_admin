@@ -26,6 +26,7 @@
     "goog": false,
     "cgAdmin": false,
     "$http": false,
-    "$window": false
+    "$window": false,
+    "CKEDITOR": false
   }
 }

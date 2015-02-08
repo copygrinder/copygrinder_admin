@@ -521,7 +521,7 @@ module.exports = function(grunt) {
 
         compilerOpts: {
           'compilation_level': 'ADVANCED_OPTIMIZATIONS',
-          externs: ['<%= yeoman.app %>/components/angular-extern/index.js'],
+          externs: ['<%= yeoman.app %>/components/angular-extern/index.js', '<%= yeoman.app %>/externs/*.js'],
           'warning_level': 'verbose',
           'summary_detail_level': 3,
           'output_wrapper': '"(function(){%output%}).call(this);\n\n//# sourceMappingURL=closure.js.map"',

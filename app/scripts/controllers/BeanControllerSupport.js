@@ -24,6 +24,8 @@ cgAdmin.BeanControllerSupport = function(contentService, $scope, $stateParams, $
 
   cgAdmin.NavController.call(this, contentService, $scope);
 
+  this.setupCkeditor();
+
   $scope['hasFields'] = true;
 };
 
@@ -164,6 +166,27 @@ cgAdmin.BeanControllerSupport.prototype.fileSelected = function(file, bean, fiel
 
 };
 
+cgAdmin.BeanControllerSupport.prototype.setupCkeditor = function() {
+
+  this.$scope.editorOptions = {
+    'extraPlugins': 'timestamp',
+    'customConfig': '',
+    'toolbar': 'custom',
+    'toolbar_custom': [ //jshint ignore:line
+      {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', 'Underline', 'Subscript', 'Superscript']},
+      {name: 'paragraph', items: ['BulletedList', 'NumberedList', 'Blockquote']},
+      {name: 'links', items: ['Link', 'Unlink']},
+      {name: 'tools', items: ['Find', 'Replace', 'Maximize']},
+      '/',
+      {name: 'styles', items: ['Format', 'PasteText', 'PasteFromWord', 'RemoveFormat']},
+      {name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar', 'CreateDiv']},
+      {name: 'clipboard', items: ['Undo', 'Redo']},
+      {name: 'document', items: ['PageBreak', 'Source']}
+    ]
+  };
+};
+
+
 /**
  * @expose
  */
@@ -203,3 +226,8 @@ cgAdmin.BeanControllerSupport.prototype.$scope.refBeans;
  * @expose
  */
 cgAdmin.BeanControllerSupport.prototype.$upload.upload.progress;
+
+/**
+ * @expose
+ */
+cgAdmin.BeanControllerSupport.prototype.$scope.editorOptions;
