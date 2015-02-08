@@ -169,7 +169,20 @@ module.exports = function(grunt) {
       tmp: '.tmp',
       reports: [
         '.tmp/reports'
-      ]
+      ],
+      serverAdmin: {
+        options: {
+          force: true
+        },
+        files: [
+          {
+            dot: true,
+            src: [
+              '../admin/*'
+            ]
+          }
+        ]
+      }
     },
 
     autoprefixer: {
@@ -353,6 +366,19 @@ module.exports = function(grunt) {
             dot: true,
             cwd: '<%= yeoman.covTmpInst %>/<%= yeoman.mainTmp %>',
             dest: '<%= yeoman.covTmp %>',
+            src: [
+              '**'
+            ]
+          }
+        ]
+      },
+      toServer: {
+        files: [
+          {
+            expand: true,
+            dot: true,
+            cwd: '<%= yeoman.dist %>/',
+            dest: '../admin',
             src: [
               '**'
             ]
@@ -698,5 +724,11 @@ module.exports = function(grunt) {
     'bower:install',
     'prepare',
     'build'
+  ]);
+
+  grunt.registerTask('toServer', [
+    'default',
+    'clean:serverAdmin',
+    'copy:toServer'
   ]);
 };
