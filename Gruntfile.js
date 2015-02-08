@@ -305,7 +305,12 @@ module.exports = function(grunt) {
               'images/**/*.{webp}',
               'fonts/*',
               'components/foundation-icon-fonts/**/*.ttf',
-              'components/foundation-icon-fonts/**/*.woff'
+              'components/foundation-icon-fonts/**/*.woff',
+              'components/ckeditor/ckeditor.js',
+              'components/ckeditor/lang/en.js',
+              'components/ckeditor/contents.css',
+              'components/ckeditor/skins/moono/**',
+              'components/ckeditor/plugins/**'
             ]
           },
           {
@@ -562,6 +567,16 @@ module.exports = function(grunt) {
             to: 'url("../images/'
           }
         ]
+      },
+      fixVendorCssPaths: {
+        src: ['.tmp/concat/styles/vendor.css'],
+        overwrite: true,
+        replacements: [
+          {
+            from: /url\(\"\.\.\/\.\.\/components\//g,
+            to: 'url("../components/'
+          }
+        ]
       }
     },
 
@@ -589,8 +604,13 @@ module.exports = function(grunt) {
       app: {
         src: ['<%= yeoman.mainTmp %>/styles/global.scss.css', '<%= yeoman.mainTmp %>/styles/pages/**/*.css']
       }
-    }
+    },
 
+    uglify: {
+      options: {
+        'dead_code': false
+      }
+    }
 
   });
 
@@ -639,9 +659,10 @@ module.exports = function(grunt) {
     'imagemin',
     'concat',
     'replace:fixCssPaths',
+    'replace:fixVendorCssPaths',
     'copy:dist',
     'cssmin',
-    'uglify',
+    'newer:uglify:generated',
     'rev',
     'usemin',
     'htmlmin'

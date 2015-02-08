@@ -5,7 +5,7 @@
             {{type.displayName}}
             <ul>
                 <li data-ng-repeat="bean in beans">
-                    <a data-ng-href="/bean/{{bean.id}}">
+                    <a data-ng-href="./bean/{{bean.id}}">
                         {{bean.names[type.id]}}
                     </a>
                 </li>
@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="small-12 columns">
-            <a class="button" data-ng-href="/type/{{type.id}}/new">New {{type.displayName}}</a>
+            <a class="button" data-ng-href="./type/{{type.id}}/new">New {{type.displayName}}</a>
         </div>
     </div>
 </div>

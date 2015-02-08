@@ -170,6 +170,44 @@ cgAdmin.BeanControllerSupport.prototype.setupCkeditor = function() {
 
   this.$scope.editorOptions = {
     'extraPlugins': 'timestamp',
+    'plugins':
+    'basicstyles,' +
+    'blockquote,' +
+    'clipboard,' +
+    'contextmenu,' +
+    'dialogadvtab,' +
+    'div,' +
+    'elementspath,' +
+    'enterkey,' +
+    'entities,' +
+    'find,' +
+    'flash,' +
+    'floatingspace,' +
+    'format,' +
+    'horizontalrule,' +
+    'htmlwriter,' +
+    'link,' +
+    'list,' +
+    'liststyle,' +
+    'maximize,' +
+    'newpage,' +
+    'pagebreak,' +
+    'pastefromword,' +
+    'pastetext,' +
+    'preview,' +
+    'removeformat,' +
+    'resize,' +
+    'showblocks,' +
+    'showborders,' +
+    'sourcearea,' +
+    'specialchar,' +
+    'stylescombo,' +
+    'tab,' +
+    'table,' +
+    'tabletools,' +
+    'toolbar,' +
+    'undo,' +
+    'wysiwygarea',
     'customConfig': '',
     'toolbar': 'custom',
     'toolbar_custom': [ //jshint ignore:line
@@ -184,7 +222,8 @@ cgAdmin.BeanControllerSupport.prototype.setupCkeditor = function() {
       {name: 'document', items: ['PageBreak', 'Source']}
     ]
   };
-};
+}
+;
 
 
 /**

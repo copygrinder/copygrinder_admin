@@ -5,12 +5,12 @@
             <ul class="tiny-block-grid-1 small-block-grid-2 medium-block-grid-3 large-block-grid-4">
                 <li data-ng-repeat="typeObj in typeObjs">
                     <div class="screenshot-container">
-                        <a class="edit-title-container" data-ng-href="/type/{{typeObj.id}}/edit" title="Edit Type">
+                        <a class="edit-title-container" data-ng-href="./type/{{typeObj.id}}/edit" title="Edit Type">
                             <span class="fi-widget"></span>
                         </a>
 
                         <div>
-                            <a data-ng-href="/type/{{typeObj.id}}" title="Edit Beans">
+                            <a data-ng-href="./type/{{typeObj.id}}" title="Edit Beans">
                                 <div class="screenshot">
                                 </div>
                                 {{typeObj.displayName}}
@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="small-12 columns">
-            <a class="button" data-ng-href="/type/new">New Type</a>
+            <a class="button" data-ng-href="./type/new">New Type</a>
         </div>
     </div>
 </div>
