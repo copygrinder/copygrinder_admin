@@ -178,7 +178,7 @@ module.exports = function(grunt) {
           {
             dot: true,
             src: [
-              '../admin/*'
+              '../src/main/resources/admin/*'
             ]
           }
         ]
@@ -378,7 +378,7 @@ module.exports = function(grunt) {
             expand: true,
             dot: true,
             cwd: '<%= yeoman.dist %>/',
-            dest: '../admin',
+            dest: '../src/main/resources/admin',
             src: [
               '**'
             ]
