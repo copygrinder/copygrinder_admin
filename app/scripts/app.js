@@ -33,7 +33,7 @@ cgAdmin.homeModule.config(cgAdmin.homeModule.locationFunc);
  * @ngInject
  */
 cgAdmin.homeModule.go = function($rootScope) {
-  $rootScope.rootUrl = 'http://127.0.0.1:19836/integrationtest';
+  $rootScope.rootUrl = document.getElementById('baseMetaTag').getAttribute('data-copygrinder-url');
 };
 
 cgAdmin.homeModule.run(cgAdmin.homeModule.go);
