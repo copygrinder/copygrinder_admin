@@ -10,7 +10,9 @@ goog.provide('cgAdmin.NavController');
  */
 cgAdmin.NavController = function (contentService, $scope) {
   contentService.getMetaBean(function (beans) {
-    $scope.siloName = beans[0].content.siloName;
+    if (beans[0]) {
+      $scope.siloName = beans[0].content.siloName;
+    }
   });
 };
 
