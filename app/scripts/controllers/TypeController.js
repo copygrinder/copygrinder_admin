@@ -54,7 +54,7 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
     var typeData = result[0];
     var beans = result[1];
 
-    if (beans.length === 1 && typeData['cardinality'] === 'One') {
+    if (beans && beans.length === 1 && typeData['cardinality'] === 'One') {
       $location.path('/bean/' + beans[0].id).replace();
     }
   }, function (reason) {
