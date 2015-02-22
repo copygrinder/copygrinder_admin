@@ -33,7 +33,11 @@ cgAdmin.homeModule.config(cgAdmin.homeModule.locationFunc);
  * @ngInject
  */
 cgAdmin.homeModule.go = function($rootScope) {
-  $rootScope.rootUrl = document.getElementById('baseMetaTag').getAttribute('data-copygrinder-url');
+  var dataUrl = document.getElementById('baseMetaTag').getAttribute('data-copygrinder-url');
+  if (window.location.protocol === 'https:') {
+    dataUrl = dataUrl.replace('http:', 'https:');
+  }
+  $rootScope.rootUrl = dataUrl;
 };
 
 cgAdmin.homeModule.run(cgAdmin.homeModule.go);
