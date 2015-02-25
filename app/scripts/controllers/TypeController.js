@@ -39,6 +39,7 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
   var getTypePromise = promise(function (deferred) {
     contentService.getType(typeId, function (typeData) {
       $scope.type = typeData;
+      console.log('typeDone ' + typeData);
       deferred.resolve(typeData);
     });
   });
@@ -46,6 +47,7 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
   var getBeansPromise = promise(function (deferred) {
     contentService.getBeansByType(typeId, function (beans) {
       $scope.beans = beans;
+      console.log('beanDone ' + beans);
       deferred.resolve(beans);
     });
   });
@@ -53,6 +55,8 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
   $q.all([getTypePromise, getBeansPromise]).then(function (result) {
     var typeData = result[0];
     var beans = result[1];
+
+    console.log('qAll');
 
     if (beans && beans.length === 1 && typeData['cardinality'] === 'One') {
       $location.path('/bean/' + beans[0].id).replace();
