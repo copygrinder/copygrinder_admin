@@ -52,7 +52,11 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
     });
   });
 
-  $q.all([getTypePromise, getBeansPromise]).then(function (result) {
+  var promises = [getTypePromise, getBeansPromise];
+
+  console.log('promises ' +  promises);
+
+  $q.all(promises).then(function (result) {
     var typeData = result[0];
     var beans = result[1];
 

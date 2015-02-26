@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
   require('time-grunt')(grunt);
 
@@ -17,6 +17,33 @@ module.exports = function(grunt) {
   });
 
   var protractorBreaksBuild = grunt.option('protractorBreaksBuild') || false;
+
+  var resolveClosureSourceMap = function () {
+
+    var done = this.async();
+
+    var sourceMapResolve = require('source-map-resolve');
+    var fs = require('fs');
+
+    var map = JSON.parse(fs.readFileSync('.tmp/main/closure/closure.js.map'));
+
+    sourceMapResolve.resolveSources(map, 'app/../scripts', fs.readFile, function (error, result) {
+
+      if (error) {
+        grunt.log.error(error);
+        done(false);
+      } else {
+        var sourcesContent = result.sourcesContent;
+        grunt.log.writeln(sourcesContent.length);
+        sourcesContent[0] = '';
+        map.sourcesContent = sourcesContent;
+        fs.writeFileSync('.tmp/main/closure/closure.js.map', JSON.stringify(map));
+        done(true);
+      }
+    });
+  };
+
+  grunt.task.registerTask('resolveClosureSourceMap', 'Fix closure source map.', resolveClosureSourceMap);
 
   grunt.initConfig({
 
@@ -76,13 +103,13 @@ module.exports = function(grunt) {
         port: 9000,
         hostname: '0.0.0.0',
         livereload: 35729,
-        middleware: function(connect, options) {
+        middleware: function (connect, options) {
           var middlewares = [];
           if (!Array.isArray(options.base)) {
             options.base = [options.base];
           }
           var directory = options.directory || options.base[options.base.length - 1];
-          options.base.forEach(function(base) {
+          options.base.forEach(function (base) {
             // Serve static files.
             middlewares.push(connect.static(base));
           });
@@ -92,7 +119,7 @@ module.exports = function(grunt) {
           // ***
           // Not found - just serve index.html
           // ***
-          middlewares.push(function(req, res) {
+          middlewares.push(function (req, res) {
             for (var file, i = 0; i < options.base.length; i++) {
               file = options.base + '/index.html';
               if (grunt.file.exists(file)) {
@@ -634,14 +661,27 @@ module.exports = function(grunt) {
 
     uglify: {
       options: {
-        'dead_code': false
+        sourceMap: true,
+        sourceMapIncludeSources: true,
+        sourceMapIn: function (src) {
+          var map = src.replace('.js', '.js.map');
+          grunt.log.writeln('HELLO! ' + map);
+          return map;
+        }
+      }
+    },
+
+    concat: {
+      options: {
+        sourceMap: true,
+        sourceMapStyle: 'embed'
       }
     }
 
   });
 
 
-  grunt.registerTask('serve', function(target) {
+  grunt.registerTask('serve', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['prepare', 'build', 'connect:dist:keepalive']);
     }
@@ -653,14 +693,15 @@ module.exports = function(grunt) {
     ]);
   });
 
-  grunt.registerTask('server', function() {
+  grunt.registerTask('server', function () {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve']);
   });
 
   grunt.registerTask('closure', [
     'closureCompiler',
-    'replace:fixSourceMap'
+    'resolveClosureSourceMap',
+    'replace:fixSourceMap',
   ]);
 
   grunt.registerTask('test', [
