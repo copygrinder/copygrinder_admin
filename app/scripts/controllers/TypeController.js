@@ -25,50 +25,15 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
 
   cgAdmin.NavController.call(this, contentService, $scope);
 
-  function promise(deferredFunc) {
-    var deferred = $q.defer();
-    try {
-      deferredFunc(deferred);
-    } catch (exception) {
-      deferred.reject(exception);
-    }
-
-    return deferred.promise;
-  }
-
-  var getTypePromise = promise(function (deferred) {
-    contentService.getType(typeId, function (typeData) {
-      $scope.type = typeData;
-      console.log('typeDone ' + typeData);
-      deferred.resolve(typeData);
-    });
-  });
-
-  var getBeansPromise = promise(function (deferred) {
+  contentService.getType(typeId, function (typeData) {
+    $scope.type = typeData;
     contentService.getBeansByType(typeId, function (beans) {
       $scope.beans = beans;
-      console.log('beanDone ' + beans);
-      deferred.resolve(beans);
+      if (beans && beans.length === 1 && typeData['cardinality'] === 'One') {
+        $location.path('/bean/' + beans[0].id).replace();
+      }
     });
   });
-
-  var promises = [getTypePromise, getBeansPromise];
-
-  console.log('promises ' +  promises);
-
-  $q.all(promises).then(function (result) {
-    var typeData = result[0];
-    var beans = result[1];
-
-    console.log('qAll');
-
-    if (beans && beans.length === 1 && typeData['cardinality'] === 'One') {
-      $location.path('/bean/' + beans[0].id).replace();
-    }
-  }, function (reason) {
-    throw reason;
-  });
-
 
 };
 
