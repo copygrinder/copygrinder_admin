@@ -13,25 +13,22 @@ goog.inherits(cgAdmin.BeanControllerSupport, cgAdmin.NavController);
  * @param {!angular.$location} $location
  * @return {cgAdmin.BeanControllerSupport}
  */
-cgAdmin.BeanControllerSupport = function(contentService, $scope, $stateParams, $location, $timeout, $upload, $rootScope) {
+cgAdmin.BeanControllerSupport = function (contentService, $scope, $stateParams, $location, $timeout, $rootScope) {
   this.$scope = $scope;
   this.$stateParams = $stateParams;
   this.$location = $location;
   this.contentService = contentService;
   this.$timeout = $timeout;
-  this.$upload = $upload;
   this.$rootScope = $rootScope;
 
   cgAdmin.NavController.call(this, contentService, $scope);
-
-  this.setupCkeditor();
 
   $scope['hasFields'] = true;
 };
 
 
-cgAdmin.BeanControllerSupport.prototype.watchLabelFields = function(bean, $scope) {
-  $scope.$watch('untypedFields', function(newVal, oldVal) {
+cgAdmin.BeanControllerSupport.prototype.watchLabelFields = function (bean, $scope) {
+  $scope.$watch('untypedFields', function (newVal, oldVal) {
     if (oldVal !== undefined && newVal !== undefined && oldVal.length === newVal.length) {
       for (var i = 0; i < newVal.length; i++) {
         var changeOldVal = oldVal[i]['id'];
@@ -52,19 +49,19 @@ cgAdmin.BeanControllerSupport.prototype.watchLabelFields = function(bean, $scope
   }, true);
 };
 
-cgAdmin.BeanControllerSupport.prototype.fetchRefs = function(types) {
-  var refFieldsNested = types.map(function(type) {
+cgAdmin.BeanControllerSupport.prototype.fetchRefs = function (types) {
+  var refFieldsNested = types.map(function (type) {
     if (type.fields) {
-      return type.fields.filter(function(field) {
+      return type.fields.filter(function (field) {
         return field.type === 'Reference';
       });
     }
   });
   var refFields = this.flatten(refFieldsNested);
   if (refFields) {
-    var displayTypes = refFields.map(function(refField) {
+    var displayTypes = refFields.map(function (refField) {
       if (refField.attributes) {
-        return refField.attributes['refs'].map(function(ref) {
+        return refField.attributes['refs'].map(function (ref) {
           return ref['refDisplayType'];
         });
       }
@@ -74,16 +71,16 @@ cgAdmin.BeanControllerSupport.prototype.fetchRefs = function(types) {
     displayTypes = this.removeDuplicates(displayTypes);
 
     var _this = this;
-    this.contentService.getBeansByTypes(displayTypes, function(beans) {
-      if (!_this.$scope.refBeans) {
-        _this.$scope.refBeans = {};
+    this.contentService.getBeansByTypes(displayTypes, function (beans) {
+      if (!_this.$scope.refbeans) {
+        _this.$scope.refbeans = {};
       }
-      angular.forEach(beans, function(bean) {
-        angular.forEach(bean['enforcedTypeIds'], function(typeId) {
-          if (!_this.$scope.refBeans[typeId]) {
-            _this.$scope.refBeans[typeId] = [];
+      angular.forEach(beans, function (bean) {
+        angular.forEach(bean['enforcedTypeIds'], function (typeId) {
+          if (!_this.$scope.refbeans[typeId]) {
+            _this.$scope.refbeans[typeId] = [];
           }
-          _this.$scope.refBeans[typeId].push(bean);
+          _this.$scope.refbeans[typeId].push(bean);
         });
       });
     });
@@ -91,8 +88,8 @@ cgAdmin.BeanControllerSupport.prototype.fetchRefs = function(types) {
 };
 
 
-cgAdmin.BeanControllerSupport.prototype.removeDuplicates = function(arr) {
-  return arr.reduce(function(p, c) {
+cgAdmin.BeanControllerSupport.prototype.removeDuplicates = function (arr) {
+  return arr.reduce(function (p, c) {
     if (p.indexOf(c) < 0) {
       p.push(c);
     }
@@ -100,11 +97,11 @@ cgAdmin.BeanControllerSupport.prototype.removeDuplicates = function(arr) {
   }, []);
 };
 
-cgAdmin.BeanControllerSupport.prototype.flatten = function(arr) {
+cgAdmin.BeanControllerSupport.prototype.flatten = function (arr) {
   var merged = [];
   merged = merged.concat.apply(merged, arr);
   if (merged) {
-    merged = merged.filter(function(field) {
+    merged = merged.filter(function (field) {
       if (field !== undefined) {
         return true;
       } else {
@@ -118,7 +115,7 @@ cgAdmin.BeanControllerSupport.prototype.flatten = function(arr) {
 /**
  * @expose
  */
-cgAdmin.BeanControllerSupport.prototype.deleteRow = function(index) {
+cgAdmin.BeanControllerSupport.prototype.deleteRow = function (index) {
   var field = this.$scope.untypedFields[index].id;
   delete this.$scope.bean.content[field];
   this.$scope.untypedFields.splice(index, 1);
@@ -127,11 +124,11 @@ cgAdmin.BeanControllerSupport.prototype.deleteRow = function(index) {
 /**
  * @expose
  */
-cgAdmin.BeanControllerSupport.prototype.addRow = function() {
+cgAdmin.BeanControllerSupport.prototype.addRow = function () {
   var fields = this.$scope.untypedFields;
   var blankExists = false;
 
-  angular.forEach(fields, function(field) {
+  angular.forEach(fields, function (field) {
     if (field.id === '') {
       blankExists = true;
     }
@@ -139,92 +136,11 @@ cgAdmin.BeanControllerSupport.prototype.addRow = function() {
 
   if (!blankExists) {
     fields.push({'id': ''});
-    this.$timeout(function() {
+    this.$timeout(function () {
       document.getElementById('label-field-').focus();
     });
   }
 };
-
-/**
- * @expose
- */
-cgAdmin.BeanControllerSupport.prototype.fileSelected = function(file, bean, fieldId) {
-
-  var _this = this;
-
-  this.$upload.upload({
-    url: _this.$rootScope.rootUrl + '/files',
-    method: 'POST',
-    file: file
-  }).progress(function(evt) {
-    //console.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total, 10) + '% file :' + evt.config.file.name);
-  }).success(function(data, status, headers, config) {
-    var filename = config.file[0].name;
-    var hash = data[0].content.hash;
-    bean.content[fieldId] = {'filename': filename, 'hash': hash};
-  });
-
-};
-
-cgAdmin.BeanControllerSupport.prototype.setupCkeditor = function() {
-
-  this.$scope.editorOptions = {
-    'extraPlugins': 'timestamp',
-    'plugins':
-    'basicstyles,' +
-    'blockquote,' +
-    'clipboard,' +
-    'contextmenu,' +
-    'dialogadvtab,' +
-    'div,' +
-    'elementspath,' +
-    'enterkey,' +
-    'entities,' +
-    'find,' +
-    'flash,' +
-    'floatingspace,' +
-    'format,' +
-    'horizontalrule,' +
-    'htmlwriter,' +
-    'link,' +
-    'list,' +
-    'liststyle,' +
-    'maximize,' +
-    'newpage,' +
-    'pagebreak,' +
-    'pastefromword,' +
-    'pastetext,' +
-    'preview,' +
-    'removeformat,' +
-    'resize,' +
-    'showblocks,' +
-    'showborders,' +
-    'sourcearea,' +
-    'specialchar,' +
-    'stylescombo,' +
-    'tab,' +
-    'table,' +
-    'tabletools,' +
-    'toolbar,' +
-    'undo,' +
-    'wysiwygarea',
-    'customConfig': '',
-    'toolbar': 'custom',
-    'toolbar_custom': [ //jshint ignore:line
-      {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', 'Underline', 'Subscript', 'Superscript']},
-      {name: 'paragraph', items: ['BulletedList', 'NumberedList', 'Blockquote']},
-      {name: 'links', items: ['Link', 'Unlink']},
-      {name: 'tools', items: ['Find', 'Replace', 'Maximize']},
-      '/',
-      {name: 'styles', items: ['Format', 'PasteText', 'PasteFromWord', 'RemoveFormat']},
-      {name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar', 'CreateDiv']},
-      {name: 'clipboard', items: ['Undo', 'Redo']},
-      {name: 'document', items: ['PageBreak', 'Source']}
-    ]
-  };
-}
-;
-
 
 /**
  * @expose
@@ -259,12 +175,7 @@ cgAdmin.BeanControllerSupport.prototype.$scope.calcType;
 /**
  * @expose
  */
-cgAdmin.BeanControllerSupport.prototype.$scope.refBeans;
-
-/**
- * @expose
- */
-cgAdmin.BeanControllerSupport.prototype.$upload.upload.progress;
+cgAdmin.BeanControllerSupport.prototype.$scope.refbeans;
 
 /**
  * @expose

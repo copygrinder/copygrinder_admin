@@ -15,7 +15,8 @@
     "foundation-icon-fonts": "zurb/foundation-icon-fonts",
     "ng-file-upload": "2.1.1",
     "ng-ckeditor": "0.2.1",
-    "ckeditor": "#full/4.4.7"
+    "ckeditor": "#full/4.4.7",
+    "angular-recursion": "1.0.5"
   },
   "devDependencies": {
     "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip",

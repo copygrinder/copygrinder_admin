@@ -5,42 +5,11 @@
             <div class="small-12 columns">
                 <table data-ng-repeat="type in types">
                     <tbody>
-                    <tr data-ng-repeat="field in type.fields">
+                    <tr data-ng-repeat="field in type.fields track by $index">
                         <td class="label-cell">{{field.displayName}}</td>
-                        <td data-ng-switch data-on="field.type">
-                            <input data-ng-switch-when="Integer" type="number" data-ng-model="bean.content[field.id]">
-                            <select data-ng-switch-when="Reference" data-ng-model="bean.content[field.id]">
-                                <option value="">None</option>
-                                <option data-ng-repeat="refBean in refBeans[field.attributes.refs[0].refDisplayType]"
-                                        value="!REF!:{{refBean.id}}"
-                                        label="{{refBean.names[field.attributes.refs[0].refDisplayType]}}"
-                                        data-ng-selected="bean.content[field.id] == '!REF!:' + refBean.id"></option>
-                            </select>
-
-                            <div data-ng-switch-when="File">
-                                <a data-ng-show="bean.content[field.id].url"
-                                   data-ng-href="{{$root.rootUrl}}/{{bean.content[field.id].url}}">
-                                    {{bean.content[field.id].filename}}
-                                </a>
-                                <span data-ng-show="!bean.content[field.id].url">{{bean.content[field.id].filename}}</span>
-                                <input type="button" class="button tiny round"
-                                       data-ng-file-change="ctrl.fileSelected($files, bean, field.id)"
-                                       data-ng-file-select value="Upload">
-                            </div>
-                            <div data-ng-switch-when="Image">
-                                <a data-ng-show="bean.content[field.id].url"
-                                   data-ng-href="{{$root.rootUrl}}/{{bean.content[field.id].url}}">
-                                    {{bean.content[field.id].filename}}
-                                </a>
-                                <span data-ng-show="!bean.content[field.id].url">{{bean.content[field.id].filename}}</span>
-                                <input type="button" class="button tiny round"
-                                       data-ng-file-change="ctrl.fileSelected($files, bean, field.id)"
-                                       data-ng-file-select data-accept="image/*" value="Upload">
-                            </div>
-                            <div data-ng-switch-when="Html">
-                                <textarea data-ckeditor="editorOptions" data-ng-model="bean.content[field.id]"> </textarea>
-                            </div>
-                            <input data-ng-switch-default type="text" data-ng-model="bean.content[field.id]">
+                        <td>
+                            <div data-beanfield data-fieldtype="field.type" data-content="bean.content"
+                                 data-id="field.id" data-attributes="field.attributes" data-refbeans="refbeans"></div>
                         </td>
                     </tr>
                     </tbody>
@@ -59,7 +28,7 @@
                                 <input type="text" data-ng-model="bean.content[field.id]" id="value-field-{{field.id}}">
                             </td>
                             <td class="delete-cell">
-                                <a href="#" class="button tiny round delete-button"
+                                <a href="#" class="button tiny round delete-button circle"
                                    data-ng-click="ctrl.deleteRow($index)">X</a>
                             </td>
                         </tr>

@@ -16,9 +16,9 @@ goog.inherits(cgAdmin.NewBeanController, cgAdmin.BeanControllerSupport);
  * @param {!angular.$location} $location
  * @return {cgAdmin.NewBeanController}
  */
-cgAdmin.NewBeanController = function(contentService, $scope, $stateParams, $location, $timeout, $upload, $rootScope) {
+cgAdmin.NewBeanController = function(contentService, $scope, $stateParams, $location, $timeout, $rootScope) {
 
-  cgAdmin.BeanControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout, $upload, $rootScope);
+  cgAdmin.BeanControllerSupport.call(this, contentService, $scope, $stateParams, $location, $timeout, $rootScope);
 
   var typeId = $stateParams['typeId'];
   this.fetchType(typeId);

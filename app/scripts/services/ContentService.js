@@ -68,6 +68,9 @@ cgAdmin.ContentService = function($http, $resource, $rootScope) {
     CopybeanResource.query({'enforcedTypeIds': typeId}, successFunc, defaultErrorHandler(errorFunc));
   };
 
+  /**
+   * @param {function()=} errorFunc
+   */
   this.getBeansByTypes = function(typeIds, successFunc, errorFunc) {
     CopybeanResource.query({'enforcedTypeIds~': typeIds}, successFunc, defaultErrorHandler(errorFunc));
   };

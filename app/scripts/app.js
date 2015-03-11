@@ -13,6 +13,7 @@ cgAdmin.homeModule = angular.module('copygrinderHome', [
   'ui.router',
   'angularFileUpload',
   'ngCkeditor',
+  'RecursionHelper',
   'mm.foundation.accordion',
   'mm.foundation.dropdownToggle',
   'template/accordion/accordion-group.html',

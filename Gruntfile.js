@@ -34,7 +34,6 @@ module.exports = function (grunt) {
         done(false);
       } else {
         var sourcesContent = result.sourcesContent;
-        grunt.log.writeln(sourcesContent.length);
         sourcesContent[0] = '';
         map.sourcesContent = sourcesContent;
         fs.writeFileSync('.tmp/main/closure/closure.js.map', JSON.stringify(map));
@@ -665,7 +664,6 @@ module.exports = function (grunt) {
         sourceMapIncludeSources: true,
         sourceMapIn: function (src) {
           var map = src.replace('.js', '.js.map');
-          grunt.log.writeln('HELLO! ' + map);
           return map;
         }
       }

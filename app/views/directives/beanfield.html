@@ -1,0 +1,46 @@
+<div data-ng-switch data-on="fieldtype">
+    <input data-ng-switch-when="Integer" type="number" data-ng-model="content[id]">
+    <select data-ng-switch-when="Reference" data-ng-model="content[id]">
+        <option value="">None</option>
+        <option data-ng-repeat="refBean in refbeans[attributes.refs[0].refDisplayType]"
+                value="!REF!:{{refBean.id}}"
+                label="{{refBean.names[attributes.refs[0].refDisplayType]}}"
+                data-ng-selected="content[id] == '!REF!:' + refBean.id"></option>
+    </select>
+
+    <div data-ng-switch-when="File">
+        <a data-ng-show="content[id].url"
+           data-ng-href="{{$root.rootUrl}}/{{content[id].url}}">
+            {{content[id].filename}}
+        </a>
+        <span data-ng-show="!content[id].url">{{content[id].filename}}</span>
+        <input type="button" class="button tiny round"
+               data-ng-file-change="fileSelected($files, bean, field.id)"
+               data-ng-file-select value="Upload">
+    </div>
+    <div data-ng-switch-when="Image">
+        <a data-ng-show="content[id].url"
+           data-ng-href="{{$root.rootUrl}}/{{content[id].url}}">
+            {{content[id].filename}}
+        </a>
+        <span data-ng-show="!content[id].url">{{content[id].filename}}</span>
+        <input type="button" class="button tiny round"
+               data-ng-file-change="ctrl.fileSelected($files, bean, field.id)"
+               data-ng-file-select data-accept="image/*" value="Upload">
+    </div>
+    <div data-ng-switch-when="Html">
+        <textarea data-ckeditor="editorOptions" data-ng-model="content[id]"></textarea>
+    </div>
+    <div data-ng-switch-when="List" class="list-container" data-ng-class="{'show-delete': showDelete[id]}">
+        <div data-ng-repeat="listField in content[id] track by $index">
+            <div data-beanfield data-fieldtype="attributes.listType" data-content="content[id]" data-id="$index"
+                 data-attributes="attributes" data-refbeans="refbeans" class="list-field"></div>
+            <a class="delete-button button round tiny circle" data-ng-click="deleteListRow(content[id], $index)">X</a>
+        </div>
+        <div class="list-add-button">
+            <a href="#" data-ng-click="addListRow(content[id])" class="button round tiny">Add Field</a>
+            <a href="#" data-ng-click="enableDelete(id)" class="button round tiny delete-button">Delete Fields</a>
+        </div>
+    </div>
+    <input data-ng-switch-default type="text" data-ng-model="content[id]">
+</div>
