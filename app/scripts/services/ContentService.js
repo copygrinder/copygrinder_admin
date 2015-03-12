@@ -24,7 +24,7 @@ cgAdmin.ContentService = function($http, $resource, $rootScope) {
     'query': {method: 'GET', cache: true, isArray: true}
   });
 
-  var CopybeanTypeResource = $resource(root + '/copybeans/types/:id', null, {
+  var CopybeanTypeResource = $resource(root + '/types/:id', null, {
     'get': {method: 'GET', cache: true},
     'query': {method: 'GET', cache: true, isArray: true},
     'update': {method: 'PUT'}
