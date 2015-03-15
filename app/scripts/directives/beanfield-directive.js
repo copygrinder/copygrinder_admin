@@ -25,11 +25,11 @@ cgAdmin.directives.beanfield = function (RecursionHelper, $upload, $rootScope) {
 
         scope['showDelete'] = {};
 
-        scope['addListRow'] = function (array) {
-          if (!array) {
-            array = [];
+        scope['addListRow'] = function (content, id) {
+          if (!content[id]) {
+            content[id] = [];
           }
-          array.push('');
+          content[id].push('');
         };
 
         scope['deleteListRow'] = function (array, $index) {

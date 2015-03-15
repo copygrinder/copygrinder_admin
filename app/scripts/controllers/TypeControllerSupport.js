@@ -13,7 +13,7 @@ goog.inherits(cgAdmin.TypeControllerSupport, cgAdmin.NavController);
  * @param {!angular.$location} $location
  * @return {cgAdmin.TypeEditorController}
  */
-cgAdmin.TypeControllerSupport = function(contentService, $scope, $stateParams, $location, $timeout) {
+cgAdmin.TypeControllerSupport = function (contentService, $scope, $stateParams, $location, $timeout) {
   this.$scope = $scope;
   this.$stateParams = $stateParams;
   this.$location = $location;
@@ -26,11 +26,11 @@ cgAdmin.TypeControllerSupport = function(contentService, $scope, $stateParams, $
   this.fetchRefTypes();
 };
 
-cgAdmin.TypeControllerSupport.prototype.fetchValidators = function() {
+cgAdmin.TypeControllerSupport.prototype.fetchValidators = function () {
   var _this = this;
-  this.contentService.getAllValidators(function(validators) {
+  this.contentService.getAllValidators(function (validators) {
     var validatorMap = {};
-    angular.forEach(validators, function(validator) {
+    angular.forEach(validators, function (validator) {
       var namespacedValId = validator.id;
       var valId = namespacedValId.replace('validator.', '');
       validatorMap[valId] = validator;
@@ -39,9 +39,9 @@ cgAdmin.TypeControllerSupport.prototype.fetchValidators = function() {
   });
 };
 
-cgAdmin.TypeControllerSupport.prototype.fetchRefTypes = function() {
+cgAdmin.TypeControllerSupport.prototype.fetchRefTypes = function () {
   var _this = this;
-  this.contentService.getReferenceTypes(function(refTypes) {
+  this.contentService.getReferenceTypes(function (refTypes) {
     _this.$scope.refTypes = refTypes;
   });
 };
@@ -49,7 +49,7 @@ cgAdmin.TypeControllerSupport.prototype.fetchRefTypes = function() {
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.addField = function() {
+cgAdmin.TypeControllerSupport.prototype.addField = function () {
   if (!this.$scope.type.fields) {
     this.$scope.type.fields = [];
   }
@@ -59,16 +59,16 @@ cgAdmin.TypeControllerSupport.prototype.addField = function() {
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.deleteField = function(index) {
+cgAdmin.TypeControllerSupport.prototype.deleteField = function (index) {
   this.$scope.type.fields.splice(index, 1);
 };
 
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.expandField = function(field) {
+cgAdmin.TypeControllerSupport.prototype.expandField = function (field) {
   field.expanded = true;
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('id-field-' + field.id).focus();
   }, 50);
 };
@@ -76,9 +76,9 @@ cgAdmin.TypeControllerSupport.prototype.expandField = function(field) {
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.collapseField = function(field) {
+cgAdmin.TypeControllerSupport.prototype.collapseField = function (field) {
   field.expanded = false;
-  setTimeout(function() {
+  setTimeout(function () {
     document.getElementById('expand-' + field.id).focus();
   }, 50);
 };
@@ -86,7 +86,7 @@ cgAdmin.TypeControllerSupport.prototype.collapseField = function(field) {
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.addValidator = function(validator, field) {
+cgAdmin.TypeControllerSupport.prototype.addValidator = function (validator, field) {
   var namespacedValId = validator.id;
   var valId = namespacedValId.replace('validator.', '');
 
@@ -100,7 +100,7 @@ cgAdmin.TypeControllerSupport.prototype.addValidator = function(validator, field
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.removeValidator = function(validator, field) {
+cgAdmin.TypeControllerSupport.prototype.removeValidator = function (validator, field) {
   var index = field.validators.indexOf(validator);
   field.validators.splice(index, 1);
 };
@@ -108,11 +108,11 @@ cgAdmin.TypeControllerSupport.prototype.removeValidator = function(validator, fi
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.getAvailableValidators = function(validatorMap, field) {
+cgAdmin.TypeControllerSupport.prototype.getAvailableValidators = function (validatorMap, field) {
   var output = [];
-  angular.forEach(validatorMap, function(validator) {
+  angular.forEach(validatorMap, function (validator) {
     var found = false;
-    angular.forEach(field.validators, function(fieldValidator) {
+    angular.forEach(field.validators, function (fieldValidator) {
       if ('validator.' + fieldValidator.type === validator.id) {
         found = true;
       }
@@ -128,17 +128,24 @@ cgAdmin.TypeControllerSupport.prototype.getAvailableValidators = function(valida
 /**
  * @expose
  */
-cgAdmin.TypeControllerSupport.prototype.fieldTypeChange = function(field) {
+cgAdmin.TypeControllerSupport.prototype.fieldTypeChange = function (field) {
+  field.attributes = {};
   if (field.type === 'Reference') {
-    if (!field.attributes) {
-      field.attributes = {};
-    }
+    field.attributes['refs'] = [
+      {'refValidationTypes': [], 'refDisplayType': ''}
+    ];
+  }
+};
 
-    if (!field.attributes['refs']) {
-      field.attributes['refs'] = [
-        {'refValidationTypes': [], 'refDisplayType': ''}
-      ];
-    }
+/**
+ * @expose
+ */
+cgAdmin.TypeControllerSupport.prototype.fieldListTypeChange = function (field) {
+  delete field.attributes['refs'];
+  if (field.attributes['listType'] === 'Reference') {
+    field.attributes['refs'] = [
+      {'refValidationTypes': [], 'refDisplayType': ''}
+    ];
   }
 };
 

@@ -68,10 +68,31 @@
                                             <option label="Integer" value="Integer"></option>
                                             <option label="String" value="String"></option>
                                             <option label="Reference" value="Reference"></option>
+                                            <option label="List" value="List"></option>
                                         </select>
                                     </label>
                                 </div>
-                                <div data-ng-show="field.type == 'Reference'">
+                                <div data-ng-show="field.type == 'List'">
+                                    <div class="medium-12 columns">
+                                        <div class="row">
+                                            <div class="medium-4 columns">
+                                                <label>List Type
+                                                    <select data-ng-model="field.attributes.listType"
+                                                            data-ng-change="ctrl.fieldListTypeChange(field)">
+                                                        <option value="">Please select</option>
+                                                        <option label="File" value="File"></option>
+                                                        <option label="HTML" value="Html"></option>
+                                                        <option label="Image" value="Image"></option>
+                                                        <option label="Integer" value="Integer"></option>
+                                                        <option label="String" value="String"></option>
+                                                        <option label="Reference" value="Reference"></option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-ng-show="field.type == 'Reference' || field.attributes.listType == 'Reference'">
                                     <div data-ng-repeat="ref in field.attributes.refs">
                                         <div class="medium-6 columns">
                                             <label>Reference Validation Type
