@@ -4,8 +4,9 @@
         <option value="">None</option>
         <option data-ng-repeat="refBean in refbeans[attributes.refs[0].refDisplayType]"
                 value="{{refBean.id}}"
-                label="{{refBean.names[attributes.refs[0].refDisplayType]}}"
-                data-ng-selected="content[id].ref == refBean.id"></option>
+                data-ng-selected="content[id].ref == refBean.id">
+            {{refBean.names[attributes.refs[0].refDisplayType]}}
+        </option>
     </select>
 
     <div data-ng-switch-when="File">

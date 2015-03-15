@@ -24,8 +24,8 @@
                         <label>Cardinality
                             <select data-ng-model="type.cardinality" required>
                                 <option value="">Please select</option>
-                                <option label="One" value="One"></option>
-                                <option label="Many" value="Many"></option>
+                                <option value="One">One</option>
+                                <option value="Many">Many</option>
                             </select>
                         </label>
                     </div>
@@ -62,13 +62,13 @@
                                         <select data-ng-model="field.type" required
                                                 data-ng-change="ctrl.fieldTypeChange(field)">
                                             <option value="">Please select</option>
-                                            <option label="File" value="File"></option>
-                                            <option label="HTML" value="Html"></option>
-                                            <option label="Image" value="Image"></option>
-                                            <option label="Integer" value="Integer"></option>
-                                            <option label="String" value="String"></option>
-                                            <option label="Reference" value="Reference"></option>
-                                            <option label="List" value="List"></option>
+                                            <option value="File">File</option>
+                                            <option value="Html">HTML</option>
+                                            <option value="Image">Image</option>
+                                            <option value="Integer">Integer</option>
+                                            <option value="String">String</option>
+                                            <option value="Reference">Reference</option>
+                                            <option value="List">List</option>
                                         </select>
                                     </label>
                                 </div>
@@ -80,12 +80,12 @@
                                                     <select data-ng-model="field.attributes.listType"
                                                             data-ng-change="ctrl.fieldListTypeChange(field)">
                                                         <option value="">Please select</option>
-                                                        <option label="File" value="File"></option>
-                                                        <option label="HTML" value="Html"></option>
-                                                        <option label="Image" value="Image"></option>
-                                                        <option label="Integer" value="Integer"></option>
-                                                        <option label="String" value="String"></option>
-                                                        <option label="Reference" value="Reference"></option>
+                                                        <option value="File">File</option>
+                                                        <option value="Html">HTML</option>
+                                                        <option value="Image">Image</option>
+                                                        <option value="Integer">Integer</option>
+                                                        <option value="String">String</option>
+                                                        <option value="Reference">Reference</option>
                                                     </select>
                                                 </label>
                                             </div>
@@ -101,9 +101,9 @@
                                                         required>
                                                     <option value="">Please select</option>
                                                     <option data-ng-repeat="refType in refTypes"
-                                                            label="{{refType.displayName}}"
                                                             value="{{refType.id}}"
                                                             data-ng-selected="refType.id == ref.refValidationTypes[0]">
+                                                        {{refType.displayName}}
                                                     </option>
                                                 </select>
                                             </label>
@@ -113,10 +113,10 @@
                                                 <select data-ng-model="ref.refDisplayType">
                                                     <option value="">Please select</option>
                                                     <option data-ng-repeat="refType in refTypes"
-                                                            label="{{refType.displayName}}"
                                                             value="{{refType.id}}"
                                                             data-ng-selected="refType.id == ref.refDisplayType"
                                                             data-ng-show="ref.refValidationTypes.indexOf(refType.id) != -1">
+                                                        {{refType.displayName}}
                                                     </option>
                                                 </select>
                                             </label>

@@ -32,6 +32,7 @@ cgAdmin.TypeController = function (contentService, $scope, $stateParams, $locati
       if (beans && beans.length === 1 && typeData['cardinality'] === 'One') {
         $location.path('/bean/' + beans[0].id).replace();
       }
+      $scope['showPage'] = true;
     });
   });
 
