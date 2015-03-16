@@ -9,7 +9,7 @@ goog.provide('cgAdmin.directives.beanfield');
 /**
  * @ngInject
  */
-cgAdmin.directives.beanfield = function (RecursionHelper, $upload, $rootScope) {
+cgAdmin.directives.beanfield = function (RecursionHelper, $upload, $rootScope, $timeout, $window) {
   return {
     restrict: 'A',
     templateUrl: 'views/directives/beanfield.html',
@@ -60,6 +60,19 @@ cgAdmin.directives.beanfield = function (RecursionHelper, $upload, $rootScope) {
           }
         };
 
+        $timeout(function () {
+
+          var w = angular.element($window);
+          w.bind('resize', function () {
+
+            angular.forEach(window['CKEDITOR']['instances'], function (instance) {
+              instance.resize();
+            });
+
+          });
+
+
+        });
 
       });
     }
