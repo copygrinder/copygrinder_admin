@@ -4,6 +4,8 @@
         <div class="row">
             <div class="small-12 columns">
 
+                <h3>{{type.displayName}} Type Definition</h3>
+
                 <div class="row">
                     <div class="small-6 columns">
                         <label>ID
@@ -31,6 +33,7 @@
                     </div>
                 </div>
 
+                <h3>Fields</h3>
                 <fieldset class="striped-rows field-group">
                     <div data-ng-repeat="field in type.fields">
                         <div class="stripe">
@@ -147,6 +150,18 @@
                                        data-ng-attr-title="{{field.noValidators && 'No validators available' || ''}}">
                                         Add Validator
                                     </a>
+                                    <span data-ng-show="field.type == 'Reference' ||
+                                            field.attributes.listType == 'Reference'">
+                                        <a class="button round tiny delete-button" href="#"
+                                           data-ng-click="ctrl.removeRefType(field.attributes.refs)">
+                                            Remove Reference Type
+                                        </a>
+                                        <a class="button round tiny" href="#"
+                                           data-ng-click="ctrl.addRefType(field.attributes.refs)">
+                                            Add Reference Type
+                                        </a>
+                                    </span>
+
                                     <ul id="addval-{{$index}}" class="f-dropdown" tabindex="-1">
                                         <li data-ng-repeat="validator in ctrl.getAvailableValidators(validatorMap, field)">
                                             <a data-ng-click="ctrl.addValidator(validator, field)">

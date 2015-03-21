@@ -55,15 +55,14 @@
 
     &.show-delete {
       .list-field {
-        width: 100%;
-        padding-right: 2.8rem;
+        width: calc(100% - 3rem);
+        //padding-right: 2.8rem;
         display: inline-block;
       }
 
       .circle.delete-button {
-        //width: 3rem;
         display: inline-block;
-        margin-left: -2rem;
+        margin-left: 0.8rem;
       }
     }
 

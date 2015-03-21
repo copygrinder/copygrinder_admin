@@ -152,6 +152,22 @@ cgAdmin.TypeControllerSupport.prototype.fieldListTypeChange = function (field) {
 /**
  * @expose
  */
+cgAdmin.TypeControllerSupport.prototype.addRefType = function (refs) {
+  refs.push(
+    {'refValidationTypes': [], 'refDisplayType': ''}
+  );
+};
+
+/**
+* @expose
+*/
+cgAdmin.TypeControllerSupport.prototype.removeRefType = function (refs) {
+  refs.splice(refs.length - 1, 1);
+};
+
+/**
+ * @expose
+ */
 cgAdmin.TypeControllerSupport.prototype.$scope.type.fields;
 
 /**

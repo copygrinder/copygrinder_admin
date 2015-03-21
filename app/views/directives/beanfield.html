@@ -2,11 +2,13 @@
     <input data-ng-switch-when="Integer" type="number" data-ng-model="content[id]">
     <select data-ng-switch-when="Reference" data-ng-model="content[id].ref">
         <option value="">None</option>
-        <option data-ng-repeat="refBean in refbeans[attributes.refs[0].refDisplayType]"
+        <option data-ng-repeat-start="ref in attributes.refs" data-ng-show="false">dummy</option>
+        <option data-ng-repeat="refBean in refbeans[ref.refDisplayType]"
                 value="{{refBean.id}}"
                 data-ng-selected="content[id].ref == refBean.id">
-            {{refBean.names[attributes.refs[0].refDisplayType]}}
+            {{refBean.names[ref.refDisplayType]}}
         </option>
+        <option data-ng-repeat-end data-ng-show="false">dummy</option>
     </select>
 
     <div data-ng-switch-when="File">

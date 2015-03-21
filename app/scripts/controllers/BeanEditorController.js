@@ -32,7 +32,8 @@ cgAdmin.BeanEditorController.prototype.fetchBean = function() {
     _this.$scope.bean = bean;
     _this.contentService.getTypesByIds(bean.enforcedTypeIds, function(types) {
       _this.$scope.types = types;
-      _this.fetchRefs(types);
+      _this.$scope['title'] = 'Edit ' + types[0]['displayName'];
+        _this.fetchRefs(types);
       var typeDefinedFields = [];
       angular.forEach(types, function(type) {
         angular.forEach(type['fields'], function(field) {

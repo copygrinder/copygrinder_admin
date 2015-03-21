@@ -53,7 +53,8 @@ cgAdmin.BeanControllerSupport.prototype.fetchRefs = function (types) {
   var refFieldsNested = types.map(function (type) {
     if (type.fields) {
       return type.fields.filter(function (field) {
-        return field.type === 'Reference';
+        var isReferenceList = field.type === 'List' && field.attributes['listType'] === 'Reference';
+        return field.type === 'Reference' || isReferenceList;
       });
     }
   });

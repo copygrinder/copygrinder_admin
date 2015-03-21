@@ -3,6 +3,7 @@
     <form data-ng-submit="ctrl.saveBean()">
         <div class="row">
             <div class="small-12 columns">
+                <h3>{{title}}</h3>
                 <table data-ng-repeat="type in types">
                     <tbody>
                     <tr data-ng-repeat="field in type.fields track by $index">
