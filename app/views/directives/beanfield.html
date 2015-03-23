@@ -1,5 +1,6 @@
 <div data-ng-switch data-on="fieldtype">
     <input data-ng-switch-when="Integer" type="number" data-ng-model="content[id]">
+    <input data-ng-switch-when="Boolean" type="checkbox" data-ng-model="content[id]">
     <select data-ng-switch-when="Reference" data-ng-model="content[id].ref">
         <option value="">None</option>
         <option data-ng-repeat-start="ref in attributes.refs" data-ng-show="false">dummy</option>
